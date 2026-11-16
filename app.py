@@ -55,6 +55,9 @@ def get_part_of_day(hour: int) -> str:
 @app.route("/")
 @app.route("/unified")
 @app.route("/studio")
+@app.route("/api")
+@app.route("/api/index")
+@app.route("/api/index.py")
 def index_unified():
     now = datetime.now()
     day_name = now.strftime("%A")
