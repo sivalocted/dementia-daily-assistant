@@ -189,3 +189,45 @@ def get_completion_rate() -> float:
     res = c.fetchone()[0]
     conn.close()
     return round((res or 0.0) * 100, 1)
+
+
+def get_all_tasks(person_id: int = 1) -> List[Dict[str, Any]]:
+    conn = get_connection()
+    c = conn.cursor()
+    c.execute("SELECT * FROM TASK WHERE person_id = ? ORDER BY time_of_day ASC", (person_id,))
+    rows = [dict(r) for r in c.fetchall()]
+    conn.close()
+    return rows
+
+
+def toggle_task_active(task_id: int) -> bool:
+    conn = get_connection()
+    c = conn.cursor()
+    c.execute("UPDATE TASK SET is_active = CASE WHEN is_active = 1 THEN 0 ELSE 1 END WHERE task_id = ?", (task_id,))
+    conn.commit()
+    c.execute("SELECT is_active FROM TASK WHERE task_id = ?", (task_id,))
+    row = c.fetchone()
+    conn.close()
+    return bool(row[0]) if row else False
+
+
+def delete_task(task_id: int) -> bool:
+    conn = get_connection()
+    c = conn.cursor()
+    c.execute("DELETE FROM OCCURRENCE WHERE task_id = ?", (task_id,))
+    c.execute("DELETE FROM TASK WHERE task_id = ?", (task_id,))
+    conn.commit()
+    deleted = c.rowcount > 0
+    conn.close()
+    return deleted
+
+
+def update_person_settings(person_id: int = 1, text_size: str = 'large', voice_on: int = 1, display_name: str = 'John') -> None:
+    conn = get_connection()
+    c = conn.cursor()
+    c.execute(
+        "UPDATE PERSON SET text_size = ?, voice_on = ?, display_name = ? WHERE person_id = ?",
+        (text_size, voice_on, display_name, person_id)
+    )
+    conn.commit()
+    conn.close()

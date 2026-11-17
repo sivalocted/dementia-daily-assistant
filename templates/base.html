@@ -298,10 +298,11 @@
             🧠 Daily Living Assistant <span style="font-size: 0.85rem; font-weight: normal; color: #666;">(MSc Project Prototype)</span>
         </div>
         <div class="nav-links">
-            <a href="{{ url_for('all_screens') }}" class="{% if request.endpoint == 'all_screens' %}active{% endif %}">📱 All 3 Screens (Design)</a>
+            <a href="{{ url_for('index_unified') }}" class="{% if request.endpoint == 'index_unified' %}active{% endif %}">⚡ Interactive Studio</a>
             <a href="{{ url_for('home') }}" class="{% if request.endpoint == 'home' %}active{% endif %}">A. Home Screen</a>
             <a href="{{ url_for('prompt') }}" class="{% if request.endpoint == 'prompt' %}active{% endif %}">B. Reminder Prompt</a>
             <a href="{{ url_for('caregiver_portal') }}" class="{% if request.endpoint == 'caregiver_portal' %}active{% endif %}">C. Caregiver Portal</a>
+            <a href="{{ url_for('all_screens') }}" class="{% if request.endpoint == 'all_screens' %}active{% endif %}">📐 Wireframe Showcase</a>
         </div>
     </div>
 

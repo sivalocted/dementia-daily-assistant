@@ -25,6 +25,7 @@ app = Flask(
     static_folder=os.path.join(BASE_DIR, "static"),
 )
 app.secret_key = "dementia-assistant-secret-key-production-msc"
+app.jinja_env.filters['has_day'] = lambda mask, bit: bool(int(mask or 0) & (1 << bit))
 
 
 class VercelWSGIWrapper:
@@ -106,7 +107,8 @@ def index_unified():
     part_of_day = get_part_of_day(now.hour)
 
     tasks = database.get_active_tasks()
-    event_logs = database.get_event_logs(limit=30)
+    all_tasks = database.get_all_tasks()
+    event_logs = database.get_event_logs(limit=50)
     contacts = database.get_contacts()
     completion_rate = database.get_completion_rate()
     caregiver = database.get_caregiver()
@@ -146,6 +148,7 @@ def index_unified():
     return render_template(
         "unified_app.html",
         tasks=tasks,
+        all_tasks=all_tasks,
         event_logs=event_logs,
         contacts=contacts,
         completion_rate=completion_rate,
@@ -671,6 +674,57 @@ def api_v1_analytics():
         "active_alerts_count": len(manager.engine.caregiver_alerts),
         "alerts": manager.engine.caregiver_alerts
     })
+
+
+@app.route("/api/v1/routines/<int:task_id>/toggle", methods=["POST"])
+def api_v1_toggle_routine(task_id):
+    """Toggle routine active state"""
+    new_state = database.toggle_task_active(task_id)
+    manager.reload_tasks()
+    return jsonify({"success": True, "task_id": task_id, "is_active": new_state})
+
+
+@app.route("/api/v1/routines/<int:task_id>/delete", methods=["POST", "DELETE"])
+def api_v1_delete_routine(task_id):
+    """Delete routine"""
+    deleted = database.delete_task(task_id)
+    manager.reload_tasks()
+    return jsonify({"success": deleted, "task_id": task_id})
+
+
+@app.route("/api/v1/person/settings", methods=["POST"])
+def api_v1_person_settings():
+    """Update person display name, text size, and voice setting"""
+    data = request.get_json(silent=True) or request.form
+    text_size = data.get("text_size", "large")
+    voice_on = 1 if data.get("voice_on") in (1, "1", True, "true", "on") else 0
+    display_name = data.get("display_name", "Sandya")
+    database.update_person_settings(person_id=1, text_size=text_size, voice_on=voice_on, display_name=display_name)
+    return jsonify({"success": True, "display_name": display_name, "text_size": text_size, "voice_on": voice_on})
+
+
+@app.route("/api/v1/events/export")
+def api_v1_export_events():
+    """Export all audit logs as CSV or JSON"""
+    format_type = request.args.get("format", "csv").lower()
+    logs = database.get_event_logs(limit=500)
+    if format_type == "json":
+        return jsonify(logs)
+    
+    # Return CSV
+    import io, csv
+    output = io.StringIO()
+    writer = csv.DictWriter(output, fieldnames=["log_id", "timestamp", "action", "occ_id", "label", "time_of_day"])
+    writer.writeheader()
+    for row in logs:
+        writer.writerow(row)
+    
+    from flask import Response
+    return Response(
+        output.getvalue(),
+        mimetype="text/csv",
+        headers={"Content-Disposition": "attachment;filename=dementia_assistant_audit_log.csv"}
+    )
 
 
 @app.route("/api/v1/docs")

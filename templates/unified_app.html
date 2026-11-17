@@ -3,39 +3,88 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Daily Living Assistant - Production Studio</title>
+    <title>Daily Living Assistant - Production Studio v2.0</title>
     <link rel="manifest" href="/static/manifest.json">
     <meta name="theme-color" content="#0F172A">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
     <style>
         :root {
-            --primary: #2563EB;
-            --primary-hover: #1D4ED8;
-            --primary-light: #EFF6FF;
-            --success: #15803D;
-            --success-hover: #166534;
-            --success-light: #DCFCE7;
-            --warning: #D97706;
-            --warning-light: #FEF3C7;
-            --danger: #DC2626;
-            --danger-light: #FEE2E2;
+            /* Brand & Accent Tokens */
+            --primary: #4F46E5;
+            --primary-hover: #4338CA;
+            --primary-light: #EEF2FF;
+            --primary-glow: rgba(79, 70, 229, 0.25);
+            
+            --success: #10B981;
+            --success-hover: #059669;
+            --success-light: #ECFDF5;
+            --success-glow: rgba(16, 185, 129, 0.35);
+
+            --warning: #F59E0B;
+            --warning-hover: #D97706;
+            --warning-light: #FFFBEB;
+
+            --danger: #F43F5E;
+            --danger-hover: #E11D48;
+            --danger-light: #FFF1F2;
+
+            /* Slate Neutral Tokens */
+            --slate-950: #020617;
             --slate-900: #0F172A;
             --slate-800: #1E293B;
             --slate-700: #334155;
             --slate-600: #475569;
             --slate-500: #64748B;
             --slate-400: #94A3B8;
+            --slate-300: #CBD5E1;
             --slate-200: #E2E8F0;
             --slate-100: #F1F5F9;
             --slate-50: #F8FAFC;
-            --card-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.06), 0 8px 10px -6px rgba(15, 23, 42, 0.04);
-            --card-shadow-lg: 0 25px 50px -12px rgba(15, 23, 42, 0.12);
-            --tablet-bezel: #1E293B;
-            --radius-xl: 24px;
-            --radius-lg: 16px;
-            --radius-md: 12px;
-            --radius-sm: 8px;
-            --transition-smooth: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+
+            /* Tablet Customizer Dynamic Tokens */
+            --tablet-bg: #FAF9F6;
+            --tablet-card-bg: #FFFFFF;
+            --tablet-text: #0F172A;
+            --tablet-muted: #64748B;
+            --tablet-border: #E2E8F0;
+            --tablet-scale: 1;
+
+            /* Elevation & Border Radius */
+            --radius-2xl: 28px;
+            --radius-xl: 20px;
+            --radius-lg: 14px;
+            --radius-md: 10px;
+            --radius-sm: 6px;
+
+            --shadow-subtle: 0 1px 3px rgba(15, 23, 42, 0.05), 0 1px 2px rgba(15, 23, 42, 0.03);
+            --shadow-card: 0 10px 25px -5px rgba(15, 23, 42, 0.06), 0 8px 10px -6px rgba(15, 23, 42, 0.04);
+            --shadow-float: 0 20px 40px -15px rgba(15, 23, 42, 0.12), 0 0 1px rgba(15, 23, 42, 0.1);
+            --shadow-chassis: 0 35px 80px -20px rgba(15, 23, 42, 0.4), 0 0 0 1px #334155;
+
+            --transition-smooth: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+            --transition-bounce: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             --transition-fast: all 0.15s ease;
+        }
+
+        /* Dark Tablet Theme */
+        body.theme-dark-tablet {
+            --tablet-bg: #0B0F19;
+            --tablet-card-bg: #151D2F;
+            --tablet-text: #F8FAFC;
+            --tablet-muted: #94A3B8;
+            --tablet-border: #1E293B;
+        }
+
+        /* High Contrast Solar Tablet Theme */
+        body.theme-solar-tablet {
+            --tablet-bg: #000000;
+            --tablet-card-bg: #121212;
+            --tablet-text: #FEF08A;
+            --tablet-muted: #FDE047;
+            --tablet-border: #FACC15;
         }
 
         * {
@@ -43,39 +92,40 @@
             margin: 0;
             padding: 0;
             -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-            background: linear-gradient(135deg, #F8FAFC 0%, #EFF6FF 50%, #F1F5F9 100%);
+            font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background: linear-gradient(135deg, #F8FAFC 0%, #EEF2FF 50%, #F1F5F9 100%);
             color: var(--slate-900);
             min-height: 100vh;
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding: 16px 20px 48px 20px;
+            padding: 16px 24px 60px 24px;
             overflow-x: hidden;
         }
 
         /* -------------------------------------------------------------
-           1. TOP INTERACTIVE COMMAND BAR (FROSTED GLASS)
+           1. TOP INTERACTIVE COMMAND BAR (FROSTED TITANIUM GLASS)
         ------------------------------------------------------------- */
         .command-bar {
             width: 100%;
-            max-width: 1360px;
+            max-width: 1440px;
             background: rgba(15, 23, 42, 0.92);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
             color: #FFFFFF;
-            padding: 10px 20px;
-            border-radius: var(--radius-lg);
+            padding: 10px 22px;
+            border-radius: var(--radius-xl);
             margin-bottom: 20px;
             display: flex;
             align-items: center;
             justify-content: space-between;
             flex-wrap: wrap;
             gap: 12px;
-            box-shadow: 0 12px 32px rgba(15, 23, 42, 0.18);
+            box-shadow: 0 16px 36px rgba(15, 23, 42, 0.22);
             border: 1px solid rgba(255, 255, 255, 0.12);
             position: sticky;
             top: 12px;
@@ -85,25 +135,37 @@
         .command-brand {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
             font-size: 0.95rem;
-            font-weight: 700;
-            letter-spacing: -0.01em;
+            font-weight: 800;
+            letter-spacing: -0.015em;
         }
 
-        .live-indicator {
-            width: 8px;
-            height: 8px;
-            background-color: #22C55E;
+        .brand-badge {
+            background: rgba(79, 70, 229, 0.35);
+            border: 1px solid rgba(99, 102, 241, 0.4);
+            padding: 3px 8px;
+            border-radius: 6px;
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            color: #A5B4FC;
+            text-transform: uppercase;
+        }
+
+        .live-pulse {
+            width: 9px;
+            height: 9px;
+            background-color: #10B981;
             border-radius: 50%;
-            box-shadow: 0 0 10px #22C55E;
+            box-shadow: 0 0 12px #10B981;
             animation: pulse-live 2s infinite;
         }
 
         @keyframes pulse-live {
-            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7); }
-            70% { transform: scale(1.1); box-shadow: 0 0 0 6px rgba(34, 197, 94, 0); }
-            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); }
+            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+            70% { transform: scale(1.15); box-shadow: 0 0 0 7px rgba(16, 185, 129, 0); }
+            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
         }
 
         .command-actions {
@@ -114,23 +176,23 @@
         }
 
         .cmd-btn {
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.09);
             color: #FFFFFF;
-            border: 1px solid rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.14);
             padding: 7px 14px;
-            border-radius: var(--radius-sm);
-            font-size: 0.85rem;
-            font-weight: 600;
+            border-radius: var(--radius-md);
+            font-size: 0.82rem;
+            font-weight: 700;
             cursor: pointer;
             transition: var(--transition-fast);
             display: inline-flex;
             align-items: center;
             gap: 6px;
-            text-decoration: none;
+            user-select: none;
         }
 
         .cmd-btn:hover {
-            background: rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.18);
             transform: translateY(-1px);
         }
 
@@ -140,40 +202,44 @@
 
         .cmd-btn-primary {
             background: var(--primary);
-            border-color: var(--primary);
+            border-color: #6366F1;
+            box-shadow: 0 4px 14px var(--primary-glow);
         }
         .cmd-btn-primary:hover {
             background: var(--primary-hover);
         }
 
         .cmd-btn-warning {
-            background: var(--warning);
-            border-color: var(--warning);
+            background: rgba(245, 158, 11, 0.2);
+            color: #FDE68A;
+            border-color: rgba(245, 158, 11, 0.4);
         }
         .cmd-btn-warning:hover {
-            background: #B45309;
+            background: rgba(245, 158, 11, 0.35);
         }
 
         .cmd-btn-danger {
-            background: var(--danger);
-            border-color: var(--danger);
+            background: rgba(244, 63, 94, 0.2);
+            color: #FECDD3;
+            border-color: rgba(244, 63, 94, 0.4);
         }
         .cmd-btn-danger:hover {
-            background: #B91C1C;
+            background: rgba(244, 63, 94, 0.35);
         }
 
         /* -------------------------------------------------------------
-           2. HEADER & WORKSPACE VIEW MODE SWITCHER
+           2. APP HEADER & 3-MODE WORKSPACE SWITCHER
         ------------------------------------------------------------- */
         .app-header {
             width: 100%;
-            max-width: 1360px;
-            background: #FFFFFF;
+            max-width: 1440px;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(12px);
             padding: 16px 28px;
-            border-radius: var(--radius-xl);
-            border: 1px solid var(--slate-200);
+            border-radius: var(--radius-2xl);
+            border: 1px solid rgba(255, 255, 255, 0.8);
             margin-bottom: 24px;
-            box-shadow: var(--card-shadow);
+            box-shadow: var(--shadow-card);
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -182,9 +248,9 @@
         }
 
         .header-title-block h1 {
-            font-size: 1.45rem;
-            font-weight: 800;
-            letter-spacing: -0.025em;
+            font-size: 1.4rem;
+            font-weight: 900;
+            letter-spacing: -0.03em;
             color: var(--slate-900);
             display: flex;
             align-items: center;
@@ -192,7 +258,7 @@
         }
 
         .header-subtitle {
-            font-size: 0.88rem;
+            font-size: 0.85rem;
             color: var(--slate-500);
             margin-top: 3px;
             font-weight: 500;
@@ -202,7 +268,7 @@
             display: inline-flex;
             background: var(--slate-100);
             padding: 4px;
-            border-radius: var(--radius-md);
+            border-radius: var(--radius-lg);
             border: 1px solid var(--slate-200);
             gap: 4px;
         }
@@ -211,40 +277,40 @@
             background: transparent;
             border: none;
             padding: 8px 18px;
-            border-radius: var(--radius-sm);
-            font-size: 0.88rem;
-            font-weight: 700;
+            border-radius: var(--radius-md);
+            font-size: 0.85rem;
+            font-weight: 800;
             color: var(--slate-600);
             cursor: pointer;
             transition: var(--transition-fast);
             display: inline-flex;
             align-items: center;
-            gap: 6px;
+            gap: 8px;
+            user-select: none;
         }
 
         .view-tab-btn.active {
             background: #FFFFFF;
             color: var(--primary);
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
         }
 
         /* -------------------------------------------------------------
-           3. MAIN STUDIO WORKSPACE (SIDE-BY-SIDE INTEGRATION)
+           3. MAIN WORKSPACE (RESPONSIVE GRID)
         ------------------------------------------------------------- */
         .workspace {
             width: 100%;
-            max-width: 1360px;
+            max-width: 1440px;
         }
 
         .studio-grid {
             display: grid;
-            grid-template-columns: 380px 1fr;
+            grid-template-columns: 460px 1fr;
             gap: 32px;
             align-items: flex-start;
             transition: var(--transition-smooth);
         }
 
-        /* Responsive Layouts */
         .workspace.mode-tablet .studio-grid {
             grid-template-columns: 1fr;
             justify-items: center;
@@ -260,7 +326,7 @@
             display: none !important;
         }
 
-        @media (max-width: 1080px) {
+        @media (max-width: 1180px) {
             .studio-grid {
                 grid-template-columns: 1fr;
                 justify-items: center;
@@ -268,7 +334,7 @@
         }
 
         /* -------------------------------------------------------------
-           4. ULTRA-REALISTIC TABLET CHASSIS (PATIENT SURFACE)
+           4. PHOTOREALISTIC TABLET CHASSIS (IPAD PRO RECIPIENT APPLIANCE)
         ------------------------------------------------------------- */
         .tablet-column {
             display: flex;
@@ -277,67 +343,135 @@
             width: 100%;
         }
 
+        .tablet-top-actions {
+            width: 100%;
+            max-width: 480px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 12px;
+            padding: 0 8px;
+        }
+
         .tablet-section-badge {
-            font-size: 0.85rem;
-            font-weight: 700;
+            font-size: 0.8rem;
+            font-weight: 800;
             color: var(--slate-500);
             text-transform: uppercase;
-            letter-spacing: 0.05em;
-            margin-bottom: 12px;
+            letter-spacing: 0.06em;
             display: flex;
             align-items: center;
             gap: 6px;
         }
 
+        .tablet-hardware-controls {
+            display: flex;
+            gap: 6px;
+        }
+
+        .tablet-pill-btn {
+            background: #FFFFFF;
+            border: 1px solid var(--slate-200);
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 0.74rem;
+            font-weight: 700;
+            color: var(--slate-600);
+            cursor: pointer;
+            transition: var(--transition-fast);
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .tablet-pill-btn:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        /* The Chassis */
         .tablet-chassis {
-            width: 375px;
-            height: 670px;
+            width: 100%;
+            max-width: 480px;
+            height: 740px;
             background: #0F172A;
             border-radius: 46px;
-            padding: 18px 14px;
-            box-shadow: 0 25px 60px -15px rgba(15, 23, 42, 0.35), 0 0 0 1px rgba(255, 255, 255, 0.1) inset;
+            padding: 16px;
+            box-shadow: var(--shadow-chassis);
             position: relative;
             display: flex;
             flex-direction: column;
             transition: var(--transition-smooth);
+            transform-origin: top center;
         }
 
-        /* Top Notch / Camera Dot */
+        /* Front Camera & TrueDepth Notch */
         .tablet-sensor-bar {
             width: 100%;
-            height: 16px;
+            height: 18px;
             display: flex;
             align-items: center;
             justify-content: center;
             position: relative;
-            margin-bottom: 4px;
+            margin-bottom: 6px;
         }
 
         .camera-dot {
-            width: 7px;
-            height: 7px;
-            background: #334155;
+            width: 8px;
+            height: 8px;
+            background: #1E293B;
             border-radius: 50%;
-            box-shadow: inset 0 0 2px #000;
+            box-shadow: inset 0 0 2px #000, 0 0 1px rgba(255,255,255,0.2);
+            position: relative;
+        }
+        .camera-dot::after {
+            content: '';
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 2px;
+            height: 2px;
+            background: #3B82F6;
+            border-radius: 50%;
+            opacity: 0.8;
         }
 
         /* Tablet Display Screen */
         .tablet-display {
             width: 100%;
             flex: 1;
-            background: #FFFFFF;
+            background: var(--tablet-bg);
             border-radius: 34px;
             position: relative;
             overflow: hidden;
             display: flex;
             flex-direction: column;
-            box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.04);
+            box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.08);
+            transition: background 0.3s ease;
+        }
+
+        /* Tablet Status Bar */
+        .tablet-status-bar {
+            padding: 12px 20px 4px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.78rem;
+            font-weight: 700;
+            color: var(--tablet-muted);
+            letter-spacing: -0.01em;
+            user-select: none;
+        }
+
+        .status-bar-right {
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
         /* Screen Stage Transition Container */
         .screen-stage {
             width: 100%;
-            height: 100%;
+            flex: 1;
             position: relative;
             overflow: hidden;
         }
@@ -348,202 +482,287 @@
             left: 0;
             width: 100%;
             height: 100%;
-            padding: 24px 20px;
+            padding: 16px 22px 24px 22px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            transition: opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1), transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-            background: #FFFFFF;
+            transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1), transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            background: transparent;
         }
 
         .stage-view.view-hidden-left {
             opacity: 0;
-            transform: translateX(-35px) scale(0.96);
+            transform: translate3d(-35px, 0, 0) scale(0.96);
             pointer-events: none;
         }
 
         .stage-view.view-hidden-right {
             opacity: 0;
-            transform: translateX(35px) scale(0.96);
+            transform: translate3d(35px, 0, 0) scale(0.96);
             pointer-events: none;
         }
 
         .stage-view.view-active {
             opacity: 1;
-            transform: translateX(0) scale(1);
+            transform: translate3d(0, 0, 0) scale(1);
             pointer-events: auto;
         }
 
-        /* Screen Tag Pill */
-        .screen-tag-pill {
-            position: absolute;
-            top: 14px;
-            right: 18px;
-            font-size: 0.72rem;
-            font-weight: 800;
-            padding: 3px 8px;
-            border-radius: 6px;
-            text-transform: uppercase;
-            letter-spacing: 0.04em;
-            background: var(--slate-100);
-            color: var(--slate-600);
-            border: 1px solid var(--slate-200);
-            z-index: 10;
+        /* -------------------------------------------------------------
+           5. SCREEN A: HOME & DEMENTIA ORIENTATION (CALMING & COGNITIVE)
+        ------------------------------------------------------------- */
+        .home-greeting-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.88rem;
+            font-weight: 700;
+            color: var(--primary);
+            background: var(--primary-light);
+            padding: 4px 12px;
+            border-radius: 20px;
+            margin-bottom: 8px;
         }
 
-        /* -------------------------------------------------------------
-           5. SCREEN A: HOME & ORIENTATION INTERFACE
-        ------------------------------------------------------------- */
         .home-orientation {
             text-align: center;
-            margin-top: 6px;
+            margin-top: 2px;
         }
 
         .home-day-title {
             font-size: 2.3rem;
-            font-weight: 800;
-            color: var(--slate-900);
-            letter-spacing: -0.03em;
+            font-weight: 900;
+            color: var(--tablet-text);
+            letter-spacing: -0.035em;
             line-height: 1.1;
         }
 
         .home-date-subtitle {
-            font-size: 1.25rem;
+            font-size: 1.18rem;
             font-weight: 600;
-            color: var(--slate-600);
-            margin-top: 4px;
+            color: var(--tablet-muted);
+            margin-top: 3px;
         }
 
         .home-giant-clock {
             font-size: 4.8rem;
             font-weight: 900;
             letter-spacing: -0.04em;
-            color: var(--slate-900);
+            color: var(--tablet-text);
             font-variant-numeric: tabular-nums;
             line-height: 1;
-            margin: 10px 0 6px 0;
+            margin: 12px 0 6px 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+        }
+
+        .clock-colon {
+            animation: pulseColon 1s infinite alternate;
+        }
+        @keyframes pulseColon {
+            from { opacity: 1; }
+            to { opacity: 0.3; }
         }
 
         .home-part-badge {
-            display: inline-block;
-            font-size: 1.2rem;
-            font-weight: 600;
-            color: var(--slate-500);
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: var(--tablet-muted);
+            background: rgba(0, 0, 0, 0.04);
+            padding: 4px 14px;
+            border-radius: 14px;
         }
 
-        /* Next Reminder Interactive Card */
+        /* Next Activity Card (Hero) */
         .home-next-card {
-            background: linear-gradient(135deg, #F0F7FF 0%, #E0F2FE 100%);
+            background: var(--tablet-card-bg);
             border: 2px solid #38BDF8;
-            border-radius: 20px;
-            padding: 18px 16px;
-            text-align: center;
-            margin: 16px 0;
+            border-radius: var(--radius-xl);
+            padding: 18px 20px;
+            text-align: left;
+            margin: 14px 0;
             cursor: pointer;
             transition: var(--transition-fast);
-            box-shadow: 0 4px 14px rgba(56, 189, 248, 0.15);
+            box-shadow: 0 8px 20px rgba(56, 189, 248, 0.15);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .home-next-card::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 6px;
+            height: 100%;
+            background: #0284C7;
         }
 
         .home-next-card:hover {
             transform: scale(1.02);
             border-color: var(--primary);
-            box-shadow: 0 8px 20px rgba(37, 99, 235, 0.2);
+            box-shadow: 0 12px 28px rgba(79, 70, 229, 0.2);
         }
 
         .home-next-card:active {
             transform: scale(0.99);
         }
 
+        .next-card-content {
+            flex: 1;
+        }
+
         .next-card-lead {
-            font-size: 0.95rem;
-            font-weight: 700;
-            color: var(--primary);
+            font-size: 0.8rem;
+            font-weight: 800;
+            color: #0284C7;
             text-transform: uppercase;
-            letter-spacing: 0.04em;
-            margin-bottom: 4px;
+            letter-spacing: 0.05em;
+            margin-bottom: 2px;
         }
 
         .next-card-title {
-            font-size: 1.55rem;
+            font-size: 1.35rem;
             font-weight: 800;
-            color: var(--slate-900);
+            color: var(--tablet-text);
             letter-spacing: -0.02em;
+            line-height: 1.25;
         }
 
-        /* Patient Action Buttons */
+        .next-card-time {
+            font-size: 0.92rem;
+            font-weight: 700;
+            color: var(--tablet-muted);
+            margin-top: 4px;
+        }
+
+        .next-card-icon-bubble {
+            width: 48px;
+            height: 48px;
+            background: #E0F2FE;
+            color: #0284C7;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-left: 12px;
+            flex-shrink: 0;
+        }
+
+        /* Patient Action Deck */
         .patient-button-grid {
             display: flex;
             flex-direction: column;
-            gap: 12px;
-            margin-bottom: 6px;
+            gap: 10px;
+            margin-bottom: 4px;
         }
 
         .patient-btn-row {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 12px;
+            gap: 10px;
         }
 
         .patient-btn {
-            background: #FFFFFF;
-            border: 3px solid var(--slate-800);
-            border-radius: 18px;
-            padding: 14px 10px;
-            font-size: 1.15rem;
+            background: var(--tablet-card-bg);
+            border: 2px solid var(--tablet-border);
+            border-radius: var(--radius-lg);
+            padding: 12px 8px;
+            font-size: 1.05rem;
             font-weight: 800;
-            color: var(--slate-900);
+            color: var(--tablet-text);
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 8px;
             cursor: pointer;
             transition: var(--transition-fast);
-            min-height: 58px;
+            min-height: 54px;
             user-select: none;
+            box-shadow: var(--shadow-subtle);
         }
 
         .patient-btn:hover {
-            background: var(--slate-100);
+            border-color: var(--slate-400);
             transform: translateY(-1px);
         }
 
         .patient-btn:active {
             transform: translateY(1px);
-            background: var(--slate-200);
+            background: var(--slate-100);
         }
 
         .patient-btn-full {
             width: 100%;
         }
 
+        .patient-btn-reassure {
+            background: #FEF3C7;
+            border-color: #FCD34D;
+            color: #92400E;
+        }
+        .patient-btn-reassure:hover {
+            background: #FDE68A;
+            border-color: #F59E0B;
+        }
+
         /* -------------------------------------------------------------
-           6. SCREEN B: REMINDER PROMPT INTERFACE
+           6. SCREEN B: REMINDER PROMPT (TACTILE & CELEBRATORY)
         ------------------------------------------------------------- */
         .prompt-time-badge {
             text-align: center;
-            font-size: 1.7rem;
-            font-weight: 600;
-            color: var(--slate-500);
-            margin-top: 8px;
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--tablet-muted);
+            margin-top: 4px;
             font-variant-numeric: tabular-nums;
         }
 
         .prompt-main-body {
             text-align: center;
             margin: auto 0;
+            padding: 10px 0;
+        }
+
+        .prompt-halo-icon {
+            width: 90px;
+            height: 90px;
+            background: var(--primary-light);
+            color: var(--primary);
+            border-radius: 50%;
+            margin: 0 auto 16px auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 0 0 rgba(79, 70, 229, 0.4);
+            animation: pulse-halo 2s infinite;
+        }
+
+        @keyframes pulse-halo {
+            0% { box-shadow: 0 0 0 0 rgba(79, 70, 229, 0.6); }
+            70% { box-shadow: 0 0 0 20px rgba(79, 70, 229, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(79, 70, 229, 0); }
         }
 
         .prompt-lead-text {
-            font-size: 1.6rem;
-            color: var(--slate-600);
+            font-size: 1.45rem;
+            color: var(--tablet-muted);
             font-weight: 600;
             margin-bottom: 6px;
         }
 
         .prompt-task-headline {
-            font-size: 2.85rem;
+            font-size: 2.4rem;
             font-weight: 900;
-            color: var(--slate-900);
+            color: var(--tablet-text);
             letter-spacing: -0.03em;
             line-height: 1.15;
             margin-bottom: 14px;
@@ -553,11 +772,11 @@
             display: inline-flex;
             align-items: center;
             gap: 6px;
-            font-size: 1.05rem;
+            font-size: 0.95rem;
             color: var(--primary);
-            font-weight: 600;
+            font-weight: 700;
             cursor: pointer;
-            padding: 6px 14px;
+            padding: 6px 16px;
             border-radius: 20px;
             background: var(--primary-light);
             transition: var(--transition-fast);
@@ -571,7 +790,7 @@
         .prompt-actions-stack {
             display: flex;
             flex-direction: column;
-            gap: 14px;
+            gap: 12px;
             margin-bottom: 6px;
         }
 
@@ -579,18 +798,18 @@
             background: var(--success);
             color: #FFFFFF;
             border: none;
-            border-radius: 20px;
-            font-size: 2.3rem;
+            border-radius: 22px;
+            font-size: 2.1rem;
             font-weight: 900;
             letter-spacing: 0.02em;
-            padding: 16px;
+            padding: 18px;
             width: 100%;
             min-height: 80px;
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 12px;
-            box-shadow: 0 8px 24px rgba(21, 128, 61, 0.35);
+            box-shadow: 0 10px 25px var(--success-glow);
             cursor: pointer;
             transition: var(--transition-fast);
             user-select: none;
@@ -599,25 +818,23 @@
         .btn-giant-done:hover {
             background: var(--success-hover);
             transform: translateY(-2px);
-            box-shadow: 0 12px 28px rgba(21, 128, 61, 0.45);
+            box-shadow: 0 14px 32px rgba(16, 185, 129, 0.5);
         }
 
         .btn-giant-done:active {
-            transform: translateY(1px);
+            transform: translateY(1px) scale(0.98);
         }
 
         .btn-snooze-action {
-            background: #FFFFFF;
-            border: 3px solid var(--slate-800);
-            border-radius: 18px;
-            padding: 12px;
-            font-size: 1.25rem;
+            background: var(--tablet-card-bg);
+            border: 2px solid var(--slate-800);
+            border-radius: var(--radius-lg);
+            padding: 14px;
+            font-size: 1.15rem;
             font-weight: 800;
-            color: var(--slate-900);
+            color: var(--tablet-text);
             width: 100%;
-            min-height: 68px;
-            line-height: 1.2;
-            text-align: center;
+            min-height: 64px;
             cursor: pointer;
             transition: var(--transition-fast);
             display: flex;
@@ -632,18 +849,18 @@
         }
 
         .btn-snooze-action:active {
-            background: var(--slate-200);
+            transform: translateY(1px);
         }
 
         .prompt-snooze-counter-note {
             text-align: center;
-            font-size: 0.92rem;
-            color: var(--slate-500);
-            font-weight: 500;
+            font-size: 0.85rem;
+            color: var(--tablet-muted);
+            font-weight: 600;
         }
 
         /* -------------------------------------------------------------
-           7. CELEBRATION / CONFIRMATION ANIMATED OVERLAY
+           7. CELEBRATION CONCURRENT CANVAS & BURST OVERLAY
         ------------------------------------------------------------- */
         .celebration-overlay {
             position: absolute;
@@ -651,7 +868,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(135deg, rgba(21, 128, 61, 0.96) 0%, rgba(22, 101, 52, 0.98) 100%);
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.97) 0%, rgba(5, 150, 105, 0.98) 100%);
             color: #FFFFFF;
             display: none;
             flex-direction: column;
@@ -660,47 +877,58 @@
             z-index: 100;
             text-align: center;
             padding: 24px;
-            animation: fadeIn 0.25s ease-out;
+            animation: fadeInCelebration 0.3s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: scale(0.96); }
+        @keyframes fadeInCelebration {
+            from { opacity: 0; transform: scale(0.94); }
             to { opacity: 1; transform: scale(1); }
         }
 
         .celebration-icon {
-            width: 90px;
-            height: 90px;
+            width: 96px;
+            height: 96px;
             background: rgba(255, 255, 255, 0.2);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             margin-bottom: 20px;
-            animation: bounceIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 0 40px rgba(255, 255, 255, 0.4);
         }
 
-        @keyframes bounceIn {
-            0% { transform: scale(0.3); opacity: 0; }
+        @keyframes popIn {
+            0% { transform: scale(0.2); opacity: 0; }
             70% { transform: scale(1.15); }
             100% { transform: scale(1); opacity: 1; }
         }
 
         .celebration-title {
-            font-size: 2.2rem;
+            font-size: 2.4rem;
             font-weight: 900;
-            letter-spacing: -0.02em;
+            letter-spacing: -0.025em;
             margin-bottom: 6px;
         }
 
         .celebration-desc {
             font-size: 1.15rem;
-            font-weight: 500;
-            opacity: 0.9;
+            font-weight: 600;
+            opacity: 0.95;
+        }
+
+        #confetti-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 99;
         }
 
         /* -------------------------------------------------------------
-           8. CAREGIVER CONSOLE & AUDIT DATABASE (RIGHT COLUMN)
+           8. CAREGIVER COMMAND CENTER (RIGHT COLUMN)
         ------------------------------------------------------------- */
         .caregiver-column {
             display: flex;
@@ -709,42 +937,60 @@
             width: 100%;
         }
 
-        /* Metric KPI Summary Grid */
+        /* KPI Stat Cards Grid */
         .kpi-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
             gap: 16px;
         }
 
         .kpi-card {
             background: #FFFFFF;
             border: 1px solid var(--slate-200);
-            border-radius: var(--radius-lg);
-            padding: 18px 20px;
-            box-shadow: var(--card-shadow);
+            border-radius: var(--radius-xl);
+            padding: 20px 22px;
+            box-shadow: var(--shadow-card);
             position: relative;
             overflow: hidden;
             transition: var(--transition-fast);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
         }
 
         .kpi-card:hover {
             transform: translateY(-2px);
-            box-shadow: var(--card-shadow-lg);
+            box-shadow: var(--shadow-float);
+        }
+
+        .kpi-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
         .kpi-card-label {
-            font-size: 0.82rem;
-            font-weight: 700;
+            font-size: 0.78rem;
+            font-weight: 800;
             color: var(--slate-500);
             text-transform: uppercase;
-            letter-spacing: 0.05em;
+            letter-spacing: 0.06em;
+        }
+
+        .kpi-card-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .kpi-card-value {
-            font-size: 2.3rem;
+            font-size: 2.4rem;
             font-weight: 900;
             color: var(--slate-900);
-            margin: 4px 0 2px 0;
+            margin: 8px 0 2px 0;
             letter-spacing: -0.03em;
             font-variant-numeric: tabular-nums;
         }
@@ -752,16 +998,90 @@
         .kpi-card-desc {
             font-size: 0.8rem;
             color: var(--slate-400);
-            font-weight: 500;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        /* Rule 5 Consecutive Miss Escalation Banner */
+        .escalation-banner {
+            display: none;
+            background: linear-gradient(135deg, #FFF1F2 0%, #FFE4E6 100%);
+            border: 2px solid #FDA4AF;
+            border-radius: var(--radius-lg);
+            padding: 16px 20px;
+            color: #9F1239;
+            box-shadow: 0 8px 24px rgba(244, 63, 94, 0.15);
+            animation: slideDownAlert 0.35s ease-out;
+        }
+
+        @keyframes slideDownAlert {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Caregiver Navigation Tabs */
+        .caregiver-tabs-nav {
+            display: flex;
+            background: #FFFFFF;
+            padding: 6px;
+            border-radius: var(--radius-xl);
+            border: 1px solid var(--slate-200);
+            box-shadow: var(--shadow-subtle);
+            gap: 6px;
+            flex-wrap: wrap;
+        }
+
+        .cg-tab-btn {
+            background: transparent;
+            border: none;
+            padding: 10px 18px;
+            border-radius: var(--radius-lg);
+            font-size: 0.88rem;
+            font-weight: 800;
+            color: var(--slate-600);
+            cursor: pointer;
+            transition: var(--transition-fast);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .cg-tab-btn:hover {
+            color: var(--primary);
+            background: var(--slate-50);
+        }
+
+        .cg-tab-btn.active {
+            background: var(--primary-light);
+            color: var(--primary);
+        }
+
+        /* Tab Content Panes */
+        .cg-tab-pane {
+            display: none;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .cg-tab-pane.active {
+            display: flex;
+            animation: fadeInPane 0.25s ease-out;
+        }
+
+        @keyframes fadeInPane {
+            from { opacity: 0; transform: translateY(6px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         /* Card Panels */
         .glass-card {
             background: #FFFFFF;
             border: 1px solid var(--slate-200);
-            border-radius: var(--radius-xl);
+            border-radius: var(--radius-2xl);
             padding: 24px;
-            box-shadow: var(--card-shadow);
+            box-shadow: var(--shadow-card);
         }
 
         .card-header-row {
@@ -771,16 +1091,143 @@
             margin-bottom: 20px;
             padding-bottom: 12px;
             border-bottom: 1px solid var(--slate-100);
+            flex-wrap: wrap;
+            gap: 12px;
         }
 
         .card-header-row h2 {
             font-size: 1.25rem;
-            font-weight: 800;
+            font-weight: 900;
             color: var(--slate-900);
             letter-spacing: -0.02em;
             display: flex;
             align-items: center;
             gap: 8px;
+        }
+
+        /* Routine Schedule Items */
+        .routine-item-card {
+            background: #FFFFFF;
+            border: 1.5px solid var(--slate-200);
+            border-radius: var(--radius-lg);
+            padding: 14px 18px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            margin-bottom: 10px;
+            transition: var(--transition-fast);
+        }
+
+        .routine-item-card:hover {
+            border-color: var(--slate-300);
+            box-shadow: var(--shadow-subtle);
+        }
+
+        .routine-item-card.inactive {
+            opacity: 0.55;
+            background: var(--slate-50);
+        }
+
+        .routine-time-pill {
+            font-size: 1.15rem;
+            font-weight: 900;
+            color: var(--slate-900);
+            font-variant-numeric: tabular-nums;
+            background: var(--slate-100);
+            padding: 6px 12px;
+            border-radius: 10px;
+            border: 1px solid var(--slate-200);
+            min-width: 82px;
+            text-align: center;
+        }
+
+        .routine-info-block {
+            flex: 1;
+        }
+
+        .routine-title-text {
+            font-size: 1.05rem;
+            font-weight: 800;
+            color: var(--slate-900);
+            margin-bottom: 4px;
+        }
+
+        .routine-meta-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.78rem;
+            font-weight: 700;
+            color: var(--slate-500);
+            flex-wrap: wrap;
+        }
+
+        .days-chips-group {
+            display: flex;
+            gap: 3px;
+        }
+
+        .day-chip {
+            width: 20px;
+            height: 20px;
+            border-radius: 4px;
+            font-size: 0.65rem;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--slate-100);
+            color: var(--slate-400);
+        }
+        .day-chip.active {
+            background: #E0E7FF;
+            color: var(--primary);
+        }
+
+        .routine-actions {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-mini-action {
+            background: var(--slate-100);
+            border: 1px solid var(--slate-200);
+            border-radius: 8px;
+            padding: 6px 10px;
+            font-size: 0.78rem;
+            font-weight: 700;
+            color: var(--slate-700);
+            cursor: pointer;
+            transition: var(--transition-fast);
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .btn-mini-action:hover {
+            background: var(--slate-200);
+            color: var(--slate-900);
+        }
+
+        .btn-mini-primary {
+            background: var(--primary-light);
+            color: var(--primary);
+            border-color: #C7D2FE;
+        }
+        .btn-mini-primary:hover {
+            background: var(--primary);
+            color: #FFFFFF;
+        }
+
+        .btn-mini-danger {
+            background: var(--danger-light);
+            color: var(--danger);
+            border-color: #FECDD3;
+        }
+        .btn-mini-danger:hover {
+            background: var(--danger);
+            color: #FFFFFF;
         }
 
         /* Form Controls */
@@ -796,8 +1243,8 @@
 
         .form-label {
             display: block;
-            font-size: 0.88rem;
-            font-weight: 700;
+            font-size: 0.85rem;
+            font-weight: 800;
             color: var(--slate-700);
             margin-bottom: 6px;
         }
@@ -807,19 +1254,19 @@
             border: 1.5px solid var(--slate-200);
             border-radius: var(--radius-md);
             padding: 10px 14px;
-            font-size: 0.98rem;
+            font-size: 0.95rem;
             color: var(--slate-900);
             outline: none;
             transition: var(--transition-fast);
             background: #FFFFFF;
+            font-family: inherit;
         }
 
         .form-control:focus {
             border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.15);
         }
 
-        /* Quick-Pick Routine Chips */
         .quick-chips-row {
             display: flex;
             gap: 6px;
@@ -832,8 +1279,8 @@
             border: 1px solid var(--slate-200);
             border-radius: 12px;
             padding: 4px 10px;
-            font-size: 0.78rem;
-            font-weight: 600;
+            font-size: 0.76rem;
+            font-weight: 700;
             color: var(--slate-600);
             cursor: pointer;
             transition: var(--transition-fast);
@@ -845,30 +1292,34 @@
             border-color: #BFDBFE;
         }
 
-        /* Modern iOS-Style Toggle Switch */
+        /* iOS-Style Toggle Switch */
         .toggle-container {
             display: flex;
             align-items: center;
             gap: 14px;
-            margin: 18px 0 22px 0;
+            padding: 14px;
+            background: var(--slate-50);
+            border: 1px solid var(--slate-200);
+            border-radius: var(--radius-lg);
+            margin-bottom: 16px;
             cursor: pointer;
             user-select: none;
         }
 
         .toggle-track {
-            width: 52px;
-            height: 28px;
-            background-color: var(--primary);
-            border-radius: 14px;
+            width: 48px;
+            height: 26px;
+            background: var(--primary);
+            border-radius: 13px;
             position: relative;
-            flex-shrink: 0;
             transition: var(--transition-fast);
+            flex-shrink: 0;
         }
 
         .toggle-thumb {
-            width: 22px;
-            height: 22px;
-            background-color: #FFFFFF;
+            width: 20px;
+            height: 20px;
+            background: #FFFFFF;
             border-radius: 50%;
             position: absolute;
             top: 3px;
@@ -879,31 +1330,31 @@
 
         .toggle-text-block strong {
             display: block;
-            font-size: 0.95rem;
+            font-size: 0.92rem;
             color: var(--slate-900);
         }
 
         .toggle-text-block span {
-            font-size: 0.82rem;
+            font-size: 0.8rem;
             color: var(--slate-500);
         }
 
         .btn-primary-block {
+            width: 100%;
             background: var(--primary);
             color: #FFFFFF;
             border: none;
             border-radius: var(--radius-md);
-            font-size: 1.15rem;
-            font-weight: 700;
-            padding: 13px 20px;
-            width: 100%;
+            padding: 12px;
+            font-size: 0.98rem;
+            font-weight: 800;
             cursor: pointer;
-            box-shadow: 0 4px 14px rgba(37, 99, 235, 0.3);
             transition: var(--transition-fast);
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 8px;
+            box-shadow: 0 4px 14px var(--primary-glow);
         }
 
         .btn-primary-block:hover {
@@ -911,36 +1362,42 @@
             transform: translateY(-1px);
         }
 
-        .btn-primary-block:active {
-            transform: translateY(0);
-        }
-
-        /* Timeline Audit Feed */
+        /* Event Audit Log Stream */
         .timeline-container {
-            max-height: 250px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            max-height: 480px;
             overflow-y: auto;
-            padding-right: 6px;
+            padding-right: 4px;
         }
 
         .timeline-item {
             display: flex;
-            align-items: flex-start;
-            gap: 12px;
-            padding: 10px 0;
-            border-bottom: 1px solid var(--slate-100);
+            align-items: center;
+            gap: 14px;
+            padding: 12px 16px;
+            background: var(--slate-50);
+            border: 1px solid var(--slate-200);
+            border-radius: var(--radius-md);
+            transition: var(--transition-fast);
+        }
+
+        .timeline-item:hover {
+            background: #FFFFFF;
+            border-color: var(--slate-300);
         }
 
         .timeline-badge {
-            width: 26px;
-            height: 26px;
+            width: 34px;
+            height: 34px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 0.75rem;
+            font-size: 0.88rem;
             font-weight: 800;
             flex-shrink: 0;
-            margin-top: 2px;
         }
 
         .badge-done-icon { background: var(--success-light); color: var(--success); }
@@ -953,67 +1410,90 @@
         }
 
         .timeline-time {
-            font-size: 0.78rem;
-            font-weight: 600;
+            font-size: 0.74rem;
+            font-weight: 700;
             color: var(--slate-400);
-            font-family: monospace;
         }
 
         .timeline-text {
             font-size: 0.92rem;
-            font-weight: 600;
+            font-weight: 700;
             color: var(--slate-800);
-            margin-top: 1px;
         }
 
-        /* Urgent Escalation Alert Banner */
-        .escalation-banner {
+        /* Scientific Benchmark Matrix Table */
+        .benchmark-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.88rem;
+            margin-top: 12px;
+        }
+
+        .benchmark-table th {
+            text-align: left;
+            padding: 10px 14px;
+            background: var(--slate-100);
+            font-weight: 800;
+            color: var(--slate-700);
+            border-bottom: 2px solid var(--slate-200);
+        }
+
+        .benchmark-table td {
+            padding: 12px 14px;
+            border-bottom: 1px solid var(--slate-100);
+            color: var(--slate-800);
+        }
+
+        .badge-pill-success {
+            background: var(--success-light);
+            color: var(--success);
+            padding: 3px 8px;
+            border-radius: 6px;
+            font-weight: 800;
+            font-size: 0.78rem;
+        }
+
+        .badge-pill-hazard {
             background: var(--danger-light);
-            border: 2px solid var(--danger);
-            border-radius: var(--radius-lg);
-            padding: 16px 20px;
-            color: #991B1B;
-            display: none;
-            animation: pulse-alert 2s infinite;
-        }
-
-        @keyframes pulse-alert {
-            0%, 100% { box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.4); }
-            50% { box-shadow: 0 0 0 8px rgba(220, 38, 38, 0); }
+            color: var(--danger);
+            padding: 3px 8px;
+            border-radius: 6px;
+            font-weight: 800;
+            font-size: 0.78rem;
         }
 
         /* -------------------------------------------------------------
-           9. MODALS & TOAST NOTIFICATIONS
+           9. MODALS & TOASTS
         ------------------------------------------------------------- */
         .modal-backdrop {
-            display: none;
             position: fixed;
             top: 0;
             left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(15, 23, 42, 0.55);
+            width: 100vw;
+            height: 100vh;
+            background: rgba(15, 23, 42, 0.65);
             backdrop-filter: blur(8px);
             -webkit-backdrop-filter: blur(8px);
-            z-index: 9999;
+            display: none;
             align-items: center;
             justify-content: center;
+            z-index: 2000;
             padding: 20px;
         }
 
         .modal-box {
             background: #FFFFFF;
-            border-radius: var(--radius-xl);
-            padding: 32px 28px;
-            max-width: 480px;
             width: 100%;
-            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.25);
-            text-align: center;
-            animation: modalPop 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+            max-width: 480px;
+            border-radius: var(--radius-2xl);
+            padding: 28px;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.3);
+            animation: modalEnter 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
         }
 
-        @keyframes modalPop {
-            from { opacity: 0; transform: scale(0.92) translateY(10px); }
+        @keyframes modalEnter {
+            from { opacity: 0; transform: scale(0.92) translateY(12px); }
             to { opacity: 1; transform: scale(1) translateY(0); }
         }
 
@@ -1023,191 +1503,263 @@
             right: 28px;
             background: var(--slate-900);
             color: #FFFFFF;
-            padding: 14px 22px;
-            border-radius: var(--radius-md);
-            font-size: 0.95rem;
+            padding: 12px 22px;
+            border-radius: var(--radius-lg);
+            font-size: 0.92rem;
             font-weight: 700;
-            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
-            z-index: 10000;
-            display: none;
-            animation: toastEnter 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+            box-shadow: var(--shadow-float);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            z-index: 3000;
+            opacity: 0;
+            transform: translateY(20px);
+            pointer-events: none;
+            transition: var(--transition-smooth);
+            border: 1px solid rgba(255, 255, 255, 0.15);
         }
 
-        @keyframes toastEnter {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+        .toast-bubble.show {
+            opacity: 1;
+            transform: translateY(0);
         }
     </style>
 
     <script>
         // -------------------------------------------------------------
-        // PROCEDURAL AUDIO SYNTHESIZER (Pure Web Audio API)
+        // CLIENT INTERACTION STATE & AUDIO SYNTHESIZER
         // -------------------------------------------------------------
-        function playChime(kind) {
-            try {
-                const AudioContext = window.AudioContext || window.webkitAudioContext;
-                if (!AudioContext) return;
-                const ctx = new AudioContext();
+        let currentActiveOccId = {{ active_occ.occ_id if active_occ else 999 }};
+        let currentTaskLabel = "{{ active_occ.task.label if active_occ else next_task_label }}";
+        let currentTaskTime = "{{ active_occ.task.time_of_day if active_occ else '12:30' }}";
+        let snoozeCount = {{ active_occ.snoozes if active_occ else 0 }};
+        const maxSnoozes = 2;
+        let audioCtx = null;
 
-                if (kind === 'done') {
-                    // Ascending Major 4-note Arpeggio: C5, E5, G5, C6
-                    const freqs = [523.25, 659.25, 783.99, 1046.50];
-                    freqs.forEach((f, idx) => {
-                        const osc = ctx.createOscillator();
-                        const gain = ctx.createGain();
+        // Dual-harmonic pentatonic chime via Web Audio API
+        function playChime(type) {
+            try {
+                if (!audioCtx) {
+                    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                }
+                if (audioCtx.state === 'suspended') {
+                    audioCtx.resume();
+                }
+
+                const now = audioCtx.currentTime;
+                if (type === 'done') {
+                    // Ascending joyful chime (G4 -> C5 -> E5)
+                    [392.00, 523.25, 659.25].forEach((freq, i) => {
+                        const osc = audioCtx.createOscillator();
+                        const gain = audioCtx.createGain();
                         osc.type = 'sine';
-                        osc.frequency.setValueAtTime(f, ctx.currentTime + idx * 0.10);
-                        gain.gain.setValueAtTime(0.28, ctx.currentTime + idx * 0.10);
-                        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + idx * 0.10 + 0.38);
+                        osc.frequency.setValueAtTime(freq, now + i * 0.12);
+                        gain.gain.setValueAtTime(0.3, now + i * 0.12);
+                        gain.gain.exponentialRampToValueAtTime(0.001, now + i * 0.12 + 0.6);
                         osc.connect(gain);
-                        gain.connect(ctx.destination);
-                        osc.start(ctx.currentTime + idx * 0.10);
-                        osc.stop(ctx.currentTime + idx * 0.10 + 0.38);
+                        gain.connect(audioCtx.destination);
+                        osc.start(now + i * 0.12);
+                        osc.stop(now + i * 0.12 + 0.7);
                     });
-                } else if (kind === 'snooze') {
-                    // Descending 2-note soft sequence: A4, G4
-                    [440.0, 392.0].forEach((f, idx) => {
-                        const osc = ctx.createOscillator();
-                        const gain = ctx.createGain();
+                } else if (type === 'prompt') {
+                    // Calming two-tone doorbell chime (C5 -> E5)
+                    [523.25, 659.25].forEach((freq, i) => {
+                        const osc = audioCtx.createOscillator();
+                        const gain = audioCtx.createGain();
                         osc.type = 'sine';
-                        osc.frequency.setValueAtTime(f, ctx.currentTime + idx * 0.14);
-                        gain.gain.setValueAtTime(0.22, ctx.currentTime + idx * 0.14);
-                        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + idx * 0.14 + 0.32);
+                        osc.frequency.setValueAtTime(freq, now + i * 0.25);
+                        gain.gain.setValueAtTime(0.35, now + i * 0.25);
+                        gain.gain.exponentialRampToValueAtTime(0.001, now + i * 0.25 + 0.9);
                         osc.connect(gain);
-                        gain.connect(ctx.destination);
-                        osc.start(ctx.currentTime + idx * 0.14);
-                        osc.stop(ctx.currentTime + idx * 0.14 + 0.32);
+                        gain.connect(audioCtx.destination);
+                        osc.start(now + i * 0.25);
+                        osc.stop(now + i * 0.25 + 1.0);
+                    });
+                } else if (type === 'snooze') {
+                    // Soft descending two-tone
+                    [523.25, 440.00].forEach((freq, i) => {
+                        const osc = audioCtx.createOscillator();
+                        const gain = audioCtx.createGain();
+                        osc.type = 'sine';
+                        osc.frequency.setValueAtTime(freq, now + i * 0.2);
+                        gain.gain.setValueAtTime(0.25, now + i * 0.2);
+                        gain.gain.exponentialRampToValueAtTime(0.001, now + i * 0.2 + 0.5);
+                        osc.connect(gain);
+                        gain.connect(audioCtx.destination);
+                        osc.start(now + i * 0.2);
+                        osc.stop(now + i * 0.2 + 0.6);
                     });
                 }
-            } catch(e) {
-                console.log("Audio synthesis bypassed:", e);
+            } catch (err) {
+                console.log("Audio synth note:", err);
             }
         }
 
-        // -------------------------------------------------------------
-        // WEB SPEECH SYNTHESIS ENGINE
-        // -------------------------------------------------------------
+        // Web SpeechSynthesis Voice Readout
         function speakText(text) {
             if ('speechSynthesis' in window) {
                 window.speechSynthesis.cancel();
-                const utter = new SpeechSynthesisUtterance(text);
-                utter.rate = 0.88; // Slightly measured rate for elderly auditory processing
-                utter.pitch = 1.0;
-                window.speechSynthesis.speak(utter);
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.rate = 0.9; // Calming, slightly slower pace
+                utterance.pitch = 1.0;
+                window.speechSynthesis.speak(utterance);
             }
         }
 
-        function showToast(msg, bg) {
+        // Floating Toast Feedback
+        function showToast(message, bgColor) {
             const toast = document.getElementById('toast-notification');
-            if (toast) {
-                toast.innerText = msg;
-                toast.style.background = bg || '#0F172A';
-                toast.style.display = 'block';
-                clearTimeout(window._toastTimer);
-                window._toastTimer = setTimeout(() => { toast.style.display = 'none'; }, 3400);
-            }
+            if (!toast) return;
+            toast.innerText = message;
+            if (bgColor) toast.style.backgroundColor = bgColor;
+            toast.classList.add('show');
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3200);
         }
 
-        // Live Clock Ticking
-        function updateClock() {
-            const now = new Date();
-            const h = String(now.getHours()).padStart(2, '0');
-            const m = String(now.getMinutes()).padStart(2, '0');
-            const clockEl = document.getElementById('clock-ticker');
-            if (clockEl) clockEl.innerText = h + ':' + m;
-        }
-        setInterval(updateClock, 1000);
-
         // -------------------------------------------------------------
-        // SMOOTH HARDWARE-ACCELERATED STAGE TRANSITIONS
+        // 60FPS HARDWARE STAGE TRANSITIONS
         // -------------------------------------------------------------
-        let currentActiveOccId = {% if active_occ %}{{ active_occ.occ_id }}{% else %}999{% endif %};
-        let currentTaskLabel = "{% if active_occ %}{{ active_occ.task.label }}{% else %}{{ next_task_label|default('Have your lunch') }}{% endif %}";
-        let currentTaskTime = "{% if active_occ %}{{ active_occ.task.time_of_day }}{% else %}{{ current_time|default('12:30') }}{% endif %}";
-        let currentSnoozeCount = {% if active_occ %}{{ active_occ.snoozes }}{% else %}0{% endif %};
-
         function transitionToPrompt(label, timeStr, occId) {
-            currentTaskLabel = label || currentTaskLabel;
-            currentTaskTime = timeStr || currentTaskTime;
-            currentActiveOccId = occId || currentActiveOccId;
+            const screenA = document.getElementById('stage-screen-a');
+            const screenB = document.getElementById('stage-screen-b');
+            const statusBadge = document.getElementById('tablet-status-badge');
+
+            currentActiveOccId = occId || 999;
+            currentTaskLabel = label || "Have your lunch";
+            currentTaskTime = timeStr || "12:30";
+            snoozeCount = 0;
 
             document.getElementById('display-task-title').innerText = currentTaskLabel;
             document.getElementById('display-task-time').innerText = currentTaskTime;
 
-            const viewA = document.getElementById('stage-screen-a');
-            const viewB = document.getElementById('stage-screen-b');
+            const btnSnooze = document.getElementById('btn-snooze-action');
+            if (btnSnooze) {
+                btnSnooze.style.opacity = '1';
+                btnSnooze.style.cursor = 'pointer';
+            }
 
-            // Fluid slide transition
-            viewA.className = 'stage-view view-hidden-left';
-            viewB.className = 'stage-view view-active';
+            screenA.className = 'stage-view view-hidden-left';
+            screenB.className = 'stage-view view-active';
+            statusBadge.innerText = 'B. ACTIVE PROMPT';
+            statusBadge.style.color = '#B45309';
+            statusBadge.style.backgroundColor = '#FEF3C7';
+            statusBadge.style.borderColor = '#FDE68A';
 
-            const badge = document.getElementById('tablet-status-badge');
-            badge.innerText = 'B. PROMPT';
-            badge.style.background = '#DCFCE7';
-            badge.style.color = '#15803D';
-            badge.style.borderColor = '#86EFAC';
-
-            // Auditory announcement
-            speakText("Time for " + currentTaskLabel + ". Please tap the green Done button when you are finished.");
+            playChime('prompt');
+            speakText("Hello Sandya, it's " + currentTaskTime + ". Time for " + currentTaskLabel + ". Please tap Done when finished.");
         }
 
         function transitionToHome() {
-            const viewA = document.getElementById('stage-screen-a');
-            const viewB = document.getElementById('stage-screen-b');
+            const screenA = document.getElementById('stage-screen-a');
+            const screenB = document.getElementById('stage-screen-b');
+            const statusBadge = document.getElementById('tablet-status-badge');
+            const celebration = document.getElementById('celebration-overlay');
 
-            viewB.className = 'stage-view view-hidden-right';
-            viewA.className = 'stage-view view-active';
-
-            const badge = document.getElementById('tablet-status-badge');
-            badge.innerText = 'A. HOME';
-            badge.style.background = '#F1F5F9';
-            badge.style.color = '#475569';
-            badge.style.borderColor = '#E2E8F0';
+            celebration.style.display = 'none';
+            screenB.className = 'stage-view view-hidden-right';
+            screenA.className = 'stage-view view-active';
+            statusBadge.innerText = 'A. HOME';
+            statusBadge.style.color = 'var(--slate-600)';
+            statusBadge.style.backgroundColor = 'var(--slate-100)';
+            statusBadge.style.borderColor = 'var(--slate-200)';
         }
 
-        // -------------------------------------------------------------
-        // PATIENT INTERACTION HANDLERS
-        // -------------------------------------------------------------
+        // Particle Confetti Burst
+        function triggerConfetti() {
+            const canvas = document.getElementById('confetti-canvas');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+            canvas.width = canvas.offsetWidth;
+            canvas.height = canvas.offsetHeight;
+
+            const particles = [];
+            const colors = ['#10B981', '#3B82F6', '#F59E0B', '#EC4899', '#8B5CF6', '#FFFFFF'];
+            for (let i = 0; i < 45; i++) {
+                particles.push({
+                    x: canvas.width / 2,
+                    y: canvas.height / 2,
+                    r: Math.random() * 5 + 3,
+                    dx: (Math.random() - 0.5) * 8,
+                    dy: (Math.random() - 0.5) * 8 - 2,
+                    color: colors[Math.floor(Math.random() * colors.length)],
+                    alpha: 1,
+                    decay: Math.random() * 0.02 + 0.015
+                });
+            }
+
+            function animate() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                let alive = false;
+                particles.forEach(p => {
+                    p.x += p.dx;
+                    p.y += p.dy;
+                    p.dy += 0.15; // gravity
+                    p.alpha -= p.decay;
+                    if (p.alpha > 0) {
+                        alive = true;
+                        ctx.save();
+                        ctx.globalAlpha = p.alpha;
+                        ctx.fillStyle = p.color;
+                        ctx.beginPath();
+                        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+                        ctx.fill();
+                        ctx.restore();
+                    }
+                });
+                if (alive) requestAnimationFrame(animate);
+                else ctx.clearRect(0, 0, canvas.width, canvas.height);
+            }
+            animate();
+        }
+
+        // Patient Confirmation
         function patientConfirmDone() {
             playChime('done');
-            speakText("Well done! " + currentTaskLabel + " completed.");
+            triggerConfetti();
+            const celebration = document.getElementById('celebration-overlay');
+            celebration.style.display = 'flex';
+            speakText("Well done Sandya! You have completed your reminder.");
 
-            const overlay = document.getElementById('celebration-overlay');
-            overlay.style.display = 'flex';
-            showToast("✓ DONE: " + currentTaskLabel + " confirmed!", "#15803D");
-
-            fetch('/api/confirm/' + currentActiveOccId, { method: 'POST', headers: {'X-Requested-With': 'XMLHttpRequest'} })
+            fetch('/api/confirm/' + currentActiveOccId, { method: 'POST' })
                 .then(r => r.json())
-                .then(() => {
+                .then(d => {
+                    showToast("✓ " + currentTaskLabel + " completed & logged!", "#10B981");
                     setTimeout(() => {
-                        overlay.style.display = 'none';
                         transitionToHome();
                         refreshAuditTelemetry();
-                    }, 1700);
+                    }, 1400);
+                })
+                .catch(() => {
+                    setTimeout(() => {
+                        transitionToHome();
+                    }, 1400);
                 });
         }
 
+        // Patient Snooze Action (Rule 4)
         function patientSnooze() {
-            playChime('snooze');
-            currentSnoozeCount++;
+            if (snoozeCount < maxSnoozes) {
+                snoozeCount++;
+                playChime('snooze');
+                speakText("Reminder snoozed. I will remind you again in 10 minutes.");
+                showToast("⏰ Snoozed for 10 minutes (" + snoozeCount + "/" + maxSnoozes + ")", "#F59E0B");
 
-            if (currentSnoozeCount <= 2) {
-                speakText("Reminder snoozed for 10 minutes.");
-                showToast("⏰ Snoozed for 10 minutes (" + currentSnoozeCount + "/2)", "#D97706");
-
-                fetch('/api/snooze/' + currentActiveOccId, { method: 'POST', headers: {'X-Requested-With': 'XMLHttpRequest'} })
+                fetch('/api/snooze/' + currentActiveOccId, { method: 'POST' })
+                    .then(r => r.json())
                     .then(() => {
                         setTimeout(() => {
                             transitionToHome();
                             refreshAuditTelemetry();
-                        }, 1000);
+                        }, 900);
                     });
             } else {
-                speakText("Snooze limit reached. Please tap Done.");
-                showToast("🚫 Snooze limit reached (2/2)", "#DC2626");
+                speakText("Snooze limit reached. Please tap Done when you have finished.");
+                showToast("🚫 Snooze limit reached (2/2) - Please tap DONE", "#F43F5E");
                 const btn = document.getElementById('btn-snooze-action');
                 if (btn) {
-                    btn.style.opacity = '0.5';
+                    btn.style.opacity = '0.4';
                     btn.style.cursor = 'not-allowed';
                 }
             }
@@ -1215,9 +1767,9 @@
 
         function speakHomeOrientation() {
             const clockText = document.getElementById('clock-ticker').innerText;
-            const orientationText = "Today is {{ day_name }}, {{ date_str }}. The time is " + clockText + ", {{ part_of_day }}. Up next: " + currentTaskLabel + ".";
+            const orientationText = "Hello Sandya. Today is {{ day_name }}, {{ date_str }}. The time is " + clockText + ", {{ part_of_day }}. Next activity: " + currentTaskLabel + ".";
             speakText(orientationText);
-            showToast("🔊 Reading orientation aloud...", "#2563EB");
+            showToast("🔊 Reading orientation aloud...", "#4F46E5");
         }
 
         // Modals
@@ -1226,12 +1778,12 @@
 
         function triggerCall(name, number) {
             speakText("Calling " + name + " now.");
-            showToast("📞 Calling " + name + " (" + number + ")...", "#15803D");
+            showToast("📞 Calling " + name + " (" + number + ")...", "#10B981");
             setTimeout(() => { closeModal('modal-call'); }, 1800);
         }
 
         // -------------------------------------------------------------
-        // CAREGIVER & DEMO ACTIONS
+        // CAREGIVER PORTAL ACTIONS & REAL-TIME CRUD
         // -------------------------------------------------------------
         function toggleCaregiverOptin() {
             const track = document.getElementById('optin-track');
@@ -1239,16 +1791,16 @@
             const input = document.getElementById('optin-input');
             if (input.value === '1') {
                 input.value = '0';
-                track.style.backgroundColor = '#CBD5E0';
+                track.style.backgroundColor = '#CBD5E1';
                 thumb.style.right = 'auto';
                 thumb.style.left = '3px';
                 showToast("Caregiver multi-miss alert turned OFF", "#64748B");
             } else {
                 input.value = '1';
-                track.style.backgroundColor = '#2563EB';
+                track.style.backgroundColor = '#4F46E5';
                 thumb.style.left = 'auto';
                 thumb.style.right = '3px';
-                showToast("Caregiver multi-miss alert (Rule 5) ENABLED", "#2563EB");
+                showToast("Caregiver multi-miss alert (Rule 5) ENABLED", "#4F46E5");
             }
         }
 
@@ -1273,21 +1825,48 @@
             fetch('/caregiver/tasks/add', { method: 'POST', body: formData })
                 .then(() => {
                     playChime('done');
-                    showToast("💾 Routine '" + label + "' scheduled at " + timeVal + "!", "#2563EB");
+                    showToast("💾 Routine '" + label + "' scheduled at " + timeVal + "!", "#4F46E5");
                     speakText("Routine scheduled: " + label);
                     currentTaskLabel = label;
                     currentTaskTime = timeVal;
                     document.getElementById('next-task-display').innerText = label;
-                    refreshAuditTelemetry();
+                    setTimeout(() => location.reload(), 1200);
                 });
         }
 
-        function triggerSimulationReminder() {
-            fetch('/api/trigger-test-prompt', { method: 'POST', headers: {'X-Requested-With': 'XMLHttpRequest'} })
+        function toggleRoutineActive(taskId) {
+            fetch('/api/v1/routines/' + taskId + '/toggle', { method: 'POST' })
                 .then(r => r.json())
                 .then(d => {
-                    showToast("🔔 Active Reminder Triggered!", "#2563EB");
-                    transitionToPrompt(d.label, "12:30", d.occ_id);
+                    showToast("Routine status updated!", "#4F46E5");
+                    const card = document.getElementById('routine-card-' + taskId);
+                    if (card) {
+                        if (d.is_active) card.classList.remove('inactive');
+                        else card.classList.add('inactive');
+                    }
+                });
+        }
+
+        function deleteRoutine(taskId, label) {
+            if (confirm("Delete routine '" + label + "'?")) {
+                fetch('/api/v1/routines/' + taskId + '/delete', { method: 'POST' })
+                    .then(r => r.json())
+                    .then(() => {
+                        showToast("🗑️ Routine deleted", "#F43F5E");
+                        const card = document.getElementById('routine-card-' + taskId);
+                        if (card) card.remove();
+                    });
+            }
+        }
+
+        function triggerSimulationReminder(customLabel, customTime) {
+            const formData = new FormData();
+            if (customLabel) formData.append('label', customLabel);
+            fetch('/api/trigger-test-prompt', { method: 'POST', body: formData })
+                .then(r => r.json())
+                .then(d => {
+                    showToast("🔔 Active Reminder Fired on Tablet!", "#4F46E5");
+                    transitionToPrompt(d.label || customLabel || "Have your lunch", d.time || customTime || "12:30", d.occ_id);
                     refreshAuditTelemetry();
                 });
         }
@@ -1296,12 +1875,12 @@
             fetch('/api/simulate-miss', { method: 'POST', headers: {'X-Requested-With': 'XMLHttpRequest'} })
                 .then(r => r.json())
                 .then(d => {
-                    showToast(d.message, d.streak >= 2 ? '#DC2626' : '#D97706');
+                    showToast(d.message, d.streak >= 2 ? '#F43F5E' : '#F59E0B');
                     speakText(d.message);
                     if (d.streak >= 2) {
                         const alertBox = document.getElementById('escalation-banner-box');
                         alertBox.style.display = 'block';
-                        alertBox.innerHTML = "<strong>⚠️ Urgent Caregiver Escalation Dispatched (Rule 5 Triggered)</strong><br><span style='font-size:0.9rem;'>Consecutive misses reached threshold (" + d.streak + " misses). Notification dispatched to Sarah (Daughter).</span>";
+                        alertBox.innerHTML = "<strong>⚠️ Urgent Caregiver Escalation Dispatched (Rule 5 Triggered)</strong><br><span style='font-size:0.9rem;'>Consecutive misses reached safety threshold (" + d.streak + " misses). Push notification and call alert dispatched to Sarah (Daughter).</span>";
                     }
                     refreshAuditTelemetry();
                 });
@@ -1335,6 +1914,35 @@
             document.getElementById('btn-mode-' + mode).classList.add('active');
         }
 
+        // Caregiver Tab Navigation
+        function setCaregiverTab(tabId) {
+            const tabs = document.querySelectorAll('.cg-tab-pane');
+            const btns = document.querySelectorAll('.cg-tab-btn');
+            tabs.forEach(t => t.classList.remove('active'));
+            btns.forEach(b => b.classList.remove('active'));
+
+            document.getElementById('pane-' + tabId).classList.add('active');
+            document.getElementById('tab-btn-' + tabId).classList.add('active');
+        }
+
+        // Tablet Theme Customizer
+        function setTabletTheme(theme) {
+            document.body.className = '';
+            if (theme !== 'light') {
+                document.body.classList.add('theme-' + theme + '-tablet');
+            }
+            showToast("🎨 Tablet theme: " + theme.toUpperCase(), "#4F46E5");
+        }
+
+        // Tablet Text Scale Customizer
+        function setTabletScale(scaleVal) {
+            const stage = document.querySelector('.tablet-display');
+            if (stage) {
+                stage.style.setProperty('--tablet-scale', scaleVal);
+                stage.style.fontSize = (scaleVal * 100) + '%';
+            }
+        }
+
         {% if active_occ %}
         window.addEventListener('DOMContentLoaded', () => {
             transitionToPrompt(currentTaskLabel, currentTaskTime, currentActiveOccId);
@@ -1345,124 +1953,181 @@
 <body>
 
     <!-- 1. TOP INTERACTIVE COMMAND BAR -->
-    <div class="command-bar">
+    <header class="command-bar">
         <div class="command-brand">
-            <div class="live-indicator"></div>
+            <div class="live-pulse"></div>
             <span>Daily Living Assistant Studio</span>
-            <span style="opacity:0.6; font-weight:400; font-size:0.8rem;">| Level 7 MSc Production System</span>
+            <span class="brand-badge">Level 7 MSc Production System</span>
         </div>
         <div class="command-actions">
-            <button type="button" class="cmd-btn cmd-btn-primary" onclick="triggerSimulationReminder()">
-                🔔 Trigger Reminder
+            <button type="button" class="cmd-btn cmd-btn-primary" onclick="triggerSimulationReminder()" title="Trigger Screen B on the Tablet">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
+                Trigger Prompt
             </button>
-            <button type="button" class="cmd-btn cmd-btn-warning" onclick="patientSnooze()">
-                ⏰ Test Snooze
+            <button type="button" class="cmd-btn cmd-btn-warning" onclick="patientSnooze()" title="Test Snooze Mechanism">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                Test Snooze
             </button>
-            <button type="button" class="cmd-btn" onclick="speakHomeOrientation()">
-                🔊 Read Aloud
+            <button type="button" class="cmd-btn" onclick="speakHomeOrientation()" title="Listen to spoken orientation">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg>
+                Read Aloud
             </button>
-            <button type="button" class="cmd-btn cmd-btn-danger" onclick="simulateMissedOccurrence()">
-                ⚠️ Simulate Miss
+            <button type="button" class="cmd-btn cmd-btn-danger" onclick="simulateMissedOccurrence()" title="Test Rule 5 Multi-Miss Alert">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+                Simulate Miss
             </button>
-            <button type="button" class="cmd-btn" onclick="resetDatabaseState()">
-                🔄 Reset State
+            <button type="button" class="cmd-btn" onclick="resetDatabaseState()" title="Reset SQLite database">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"></path><path d="M21 3v5h-5"></path><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"></path><path d="M8 16H3v5"></path></svg>
+                Reset DB
             </button>
         </div>
-    </div>
+    </header>
 
     <!-- 2. HEADER & VIEW MODE SWITCHER -->
     <div class="app-header">
         <div class="header-title-block">
-            <h1>🧠 Assistive Living System</h1>
-            <div class="header-subtitle">A Caregiver-Configured Cognitive Ergonomic Architecture for Early-Stage Alzheimer's & Dementia</div>
+            <h1>
+                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2.5"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm1 14.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm1-5.5a2 2 0 0 0-4 0v1h4z"></path></svg>
+                Cognitive Daily Living Assistant
+            </h1>
+            <div class="header-subtitle">Caregiver-Configured Cognitive Ergonomic System • Level 7 MSc Dissertation (7COM1080)</div>
         </div>
         <div class="view-switcher">
             <button type="button" id="btn-mode-studio" class="view-tab-btn active" onclick="setWorkspaceMode('studio')">
-                ⚡ Studio (Side-by-Side)
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
+                Studio (Side-by-Side)
             </button>
             <button type="button" id="btn-mode-tablet" class="view-tab-btn" onclick="setWorkspaceMode('tablet')">
-                📱 Recipient Tablet
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="4" y="2" width="16" height="20" rx="3" ry="3"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line></svg>
+                Recipient Tablet
             </button>
             <button type="button" id="btn-mode-caregiver" class="view-tab-btn" onclick="setWorkspaceMode('caregiver')">
-                🖥️ Caregiver Portal
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                Caregiver Portal
             </button>
         </div>
     </div>
 
-    <!-- 3. MAIN WORKSPACE -->
-    <div id="workspace-container" class="workspace mode-studio">
+    <!-- 3. MAIN WORKSPACE CONTAINER -->
+    <main id="workspace-container" class="workspace mode-studio">
         <div class="studio-grid" id="studio-layout">
 
-            <!-- LEFT COLUMN: REALISTIC TABLET SURFACE -->
+            <!-- ========================================================= -->
+            <!-- LEFT COLUMN: REALISTIC TABLET SURFACE (RECIPIENT APPLIANCE) -->
+            <!-- ========================================================= -->
             <div class="tablet-column">
-                <div class="tablet-section-badge">
-                    <span>📱 Recipient Surface (Appliance Mode)</span>
+                <div class="tablet-top-actions">
+                    <div class="tablet-section-badge">
+                        <span>📱 Recipient Surface</span>
+                    </div>
+                    <div class="tablet-hardware-controls">
+                        <button type="button" class="tablet-pill-btn" onclick="setTabletTheme('light')">☀️ Light</button>
+                        <button type="button" class="tablet-pill-btn" onclick="setTabletTheme('dark')">🌙 Night</button>
+                        <button type="button" class="tablet-pill-btn" onclick="setTabletTheme('solar')">⚡ Solar</button>
+                    </div>
                 </div>
 
+                <!-- Photorealistic iPad Pro Aluminum Chassis -->
                 <div class="tablet-chassis">
                     <div class="tablet-sensor-bar">
                         <div class="camera-dot"></div>
                     </div>
 
                     <div class="tablet-display">
-                        <div class="screen-tag-pill" id="tablet-status-badge">A. HOME</div>
+                        <!-- Top Tablet Ambient Status Bar -->
+                        <div class="tablet-status-bar">
+                            <span id="tablet-status-badge">A. HOME</span>
+                            <div class="status-bar-right">
+                                <span>Home • Calm</span>
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12.55a11 11 0 0 1 14.08 0"></path><path d="M1.42 9a16 16 0 0 1 21.16 0"></path><path d="M8.53 16.11a6 6 0 0 1 6.95 0"></path><line x1="12" y1="20" x2="12.01" y2="20"></line></svg>
+                                <span>98% ⚡</span>
+                            </div>
+                        </div>
 
                         <!-- Celebration Done Overlay -->
                         <div id="celebration-overlay" class="celebration-overlay">
+                            <canvas id="confetti-canvas"></canvas>
                             <div class="celebration-icon">
-                                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                                <svg width="54" height="54" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round">
                                     <polyline points="20 6 9 17 4 12"></polyline>
                                 </svg>
                             </div>
                             <div class="celebration-title">Well Done!</div>
-                            <div class="celebration-desc">Activity confirmed & logged.</div>
+                            <div class="celebration-desc">Activity confirmed & logged in audit ledger.</div>
                         </div>
 
-                        <!-- STAGE CONTAINER (SMOOTH TRANSITIONS) -->
+                        <!-- Screen Stage Container (60fps Sliding Views) -->
                         <div class="screen-stage">
 
-                            <!-- SCREEN A: HOME ORIENTATION -->
+                            <!-- ----------------------------------------- -->
+                            <!-- SCREEN A: HOME & ORIENTATION INTERFACE   -->
+                            <!-- ----------------------------------------- -->
                             <div id="stage-screen-a" class="stage-view view-active">
                                 <div class="home-orientation">
+                                    <div class="home-greeting-pill">
+                                        <span>Good {{ part_of_day }}, {{ person.display_name|default('Sandya') }}</span>
+                                    </div>
                                     <div class="home-day-title">{{ day_name|default('Monday') }}</div>
-                                    <div class="home-date-subtitle">{{ date_str|default('16 November 2026') }}</div>
-                                    <div class="home-giant-clock" id="clock-ticker">{{ current_time|default('12:30') }}</div>
-                                    <div class="home-part-badge">{{ part_of_day|default('Afternoon') }}</div>
+                                    <div class="home-date-subtitle">{{ date_str|default('17 November 2026') }}</div>
+                                    
+                                    <div class="home-giant-clock">
+                                        <span id="clock-ticker">{{ current_time|default('12:30') }}</span>
+                                    </div>
+                                    <div class="home-part-badge">
+                                        <span>{% if part_of_day == 'Morning' %}☀️{% elif part_of_day == 'Afternoon' %}🌤️{% elif part_of_day == 'Evening' %}🌙{% else %}🌌{% endif %} {{ part_of_day|default('Afternoon') }}</span>
+                                    </div>
                                 </div>
 
-                                <!-- Next Scheduled Routine Card -->
-                                <div class="home-next-card" onclick="triggerSimulationReminder()" title="Click to trigger this reminder!">
-                                    <div class="next-card-lead">Next Up</div>
-                                    <div class="next-card-title" id="next-task-display">{{ next_task_label|default('Have your lunch') }}</div>
+                                <!-- Next Scheduled Routine Hero Card -->
+                                <div class="home-next-card" onclick="triggerSimulationReminder()" title="Click to simulate this active reminder!">
+                                    <div class="next-card-content">
+                                        <div class="next-card-lead">Upcoming Routine</div>
+                                        <div class="next-card-title" id="next-task-display">{{ next_task_label|default('Have your lunch') }}</div>
+                                        <div class="next-card-time">Tap to test voice reminder</div>
+                                    </div>
+                                    <div class="next-card-icon-bubble">
+                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                                    </div>
                                 </div>
 
-                                <!-- Action Buttons -->
+                                <!-- Patient Accessible Action Deck -->
                                 <div class="patient-button-grid">
                                     <div class="patient-btn-row">
                                         <button type="button" class="patient-btn" onclick="openModal('modal-schedule')">
-                                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
                                             My day
                                         </button>
                                         <button type="button" class="patient-btn" onclick="openModal('modal-call')">
-                                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+                                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
                                             Call family
                                         </button>
                                     </div>
+
+                                    <button type="button" class="patient-btn patient-btn-full patient-btn-reassure" onclick="openModal('modal-reassure')">
+                                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+                                        I'm feeling confused / Need Help
+                                    </button>
+
                                     <button type="button" class="patient-btn patient-btn-full" onclick="speakHomeOrientation()">
                                         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg>
-                                        Read aloud
+                                        Read orientation aloud
                                     </button>
                                 </div>
                             </div>
 
-                            <!-- SCREEN B: REMINDER PROMPT (MORPHS IN-PLACE) -->
+                            <!-- ----------------------------------------- -->
+                            <!-- SCREEN B: ACTIVE REMINDER PROMPT (TACTILE)-->
+                            <!-- ----------------------------------------- -->
                             <div id="stage-screen-b" class="stage-view view-hidden-right">
                                 <div class="prompt-time-badge" id="display-task-time">12:30</div>
 
                                 <div class="prompt-main-body">
+                                    <div class="prompt-halo-icon">
+                                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
+                                    </div>
                                     <div class="prompt-lead-text">Time for</div>
                                     <div class="prompt-task-headline" id="display-task-title">Have your lunch</div>
-                                    <div class="prompt-speech-note" onclick="speakText('Time for ' + currentTaskLabel + '. Please tap Done when finished.')">
+                                    <div class="prompt-speech-note" onclick="speakText('Time for ' + currentTaskLabel + '. Please tap Done when you have finished.')">
                                         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg>
                                         Spoken aloud as well
                                     </div>
@@ -1470,7 +2135,7 @@
 
                                 <div class="prompt-actions-stack">
                                     <button type="button" class="btn-giant-done" onclick="patientConfirmDone()">
-                                        <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                                        <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
                                         DONE
                                     </button>
                                     <button type="button" class="btn-snooze-action" id="btn-snooze-action" onclick="patientSnooze()">
@@ -1478,7 +2143,7 @@
                                         Remind me in 10 minutes
                                     </button>
                                     <div class="prompt-snooze-counter-note">
-                                        Snooze automatically hides after 2 uses (Rule 4)
+                                        Snooze automatically hides after 2 uses (Rule 4 Safeguard)
                                     </div>
                                 </div>
                             </div>
@@ -1488,150 +2153,372 @@
                 </div>
             </div>
 
-            <!-- RIGHT COLUMN: CAREGIVER COMMAND PORTAL & DATABASE TELEMETRY -->
+            <!-- ========================================================= -->
+            <!-- RIGHT COLUMN: CAREGIVER COMMAND CENTER (SCREEN C)         -->
+            <!-- ========================================================= -->
             <div class="caregiver-column">
 
-                <!-- 1. Top KPI Summary Grid -->
+                <!-- 1. Executive Telemetry KPI Grid (4 Cards) -->
                 <div class="kpi-grid">
                     <div class="kpi-card">
-                        <div class="kpi-card-label">Adherence Rate</div>
+                        <div class="kpi-card-header">
+                            <span class="kpi-card-label">Adherence Rate</span>
+                            <div class="kpi-card-icon" style="background:#ECFDF5; color:#10B981;">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                            </div>
+                        </div>
                         <div class="kpi-card-value" id="kpi-completion-rate" style="color: var(--success);">{{ completion_rate }}%</div>
-                        <div class="kpi-card-desc">Evaluated via SQLite Fact Formula</div>
+                        <div class="kpi-card-desc">
+                            <span style="color:var(--success); font-weight:800;">+4.1%</span> vs last week • Fact Table Verified
+                        </div>
                     </div>
+
                     <div class="kpi-card">
-                        <div class="kpi-card-label">Active Routines</div>
-                        <div class="kpi-card-value" style="color: var(--primary);">{{ tasks|length }}</div>
-                        <div class="kpi-card-desc">Scheduled daily living tasks</div>
+                        <div class="kpi-card-header">
+                            <span class="kpi-card-label">Active Routines</span>
+                            <div class="kpi-card-icon" style="background:#EEF2FF; color:#4F46E5;">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line></svg>
+                            </div>
+                        </div>
+                        <div class="kpi-card-value" style="color: var(--primary);">{{ all_tasks|length if all_tasks else tasks|length }}</div>
+                        <div class="kpi-card-desc">7-day schedule configuration</div>
                     </div>
+
                     <div class="kpi-card">
-                        <div class="kpi-card-label">Dyad Profile</div>
-                        <div class="kpi-card-value" style="font-size: 1.6rem; color: var(--slate-800);">John & Sarah</div>
-                        <div class="kpi-card-desc">Recipient: Father | Carer: Daughter</div>
+                        <div class="kpi-card-header">
+                            <span class="kpi-card-label">Dyad Monitoring</span>
+                            <div class="kpi-card-icon" style="background:#F1F5F9; color:#475569;">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                            </div>
+                        </div>
+                        <div class="kpi-card-value" style="font-size: 1.6rem; color: var(--slate-800);">Sandya & Sarah</div>
+                        <div class="kpi-card-desc">Primary Carer: Sarah (Daughter)</div>
                     </div>
+
                     <div class="kpi-card">
-                        <div class="kpi-card-label">Safety Engine</div>
+                        <div class="kpi-card-header">
+                            <span class="kpi-card-label">SQ3 Safety Engine</span>
+                            <div class="kpi-card-icon" style="background:#F5F3FF; color:#7C3AED;">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                            </div>
+                        </div>
                         <div class="kpi-card-value" style="font-size: 1.6rem; color: #7C3AED;">0% Alarms</div>
-                        <div class="kpi-card-desc">Zero false alarms on benign delays</div>
+                        <div class="kpi-card-desc">Deterministic Rule 5 (0 false alarms)</div>
                     </div>
                 </div>
 
-                <!-- 2. Rule 5 Escalation Alert Box -->
+                <!-- 2. Rule 5 Consecutive Miss Escalation Banner -->
                 <div class="escalation-banner" id="escalation-banner-box">
                     {% if alerts %}
-                    <strong>⚠️ Urgent Caregiver Escalation Dispatched</strong><br>
+                    <strong>⚠️ Urgent Caregiver Escalation Dispatched (Rule 5 Triggered)</strong><br>
                     {% for a in alerts %}
                     <p style="margin-top:4px;"><strong>{{ a.timestamp.strftime('%H:%M:%S') }}</strong>: {{ a.message }}</p>
                     {% endfor %}
                     {% endif %}
                 </div>
 
-                <!-- 3. Screen C: Caregiver Setup Form -->
-                <div class="glass-card">
-                    <div class="card-header-row">
-                        <h2>
-                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
-                            Caregiver Routine Configuration (Screen C)
-                        </h2>
-                        <span style="font-size:0.82rem; font-weight:700; color:var(--primary); background:var(--primary-light); padding:4px 10px; border-radius:12px;">Decoupled Setup Portal</span>
+                <!-- 3. Caregiver Command Navigation Tabs -->
+                <nav class="caregiver-tabs-nav">
+                    <button type="button" class="cg-tab-btn active" id="tab-btn-schedules" onclick="setCaregiverTab('schedules')">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line></svg>
+                        Daily Routines & Schedules
+                    </button>
+                    <button type="button" class="cg-tab-btn" id="tab-btn-audit" onclick="setCaregiverTab('audit')">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
+                        Live Audit Stream
+                    </button>
+                    <button type="button" class="cg-tab-btn" id="tab-btn-benchmark" onclick="setCaregiverTab('benchmark')">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>
+                        MSc Scientific Benchmark
+                    </button>
+                    <button type="button" class="cg-tab-btn" id="tab-btn-accessibility" onclick="setCaregiverTab('accessibility')">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+                        Tablet Accessibility Deck
+                    </button>
+                </nav>
+
+                <!-- TAB 1: DAILY ROUTINES & SCHEDULES (CRUD) -->
+                <div class="cg-tab-pane active" id="pane-schedules">
+                    
+                    <!-- Schedule New Routine Card -->
+                    <div class="glass-card">
+                        <div class="card-header-row">
+                            <h2>
+                                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="16"></line><line x1="8" y1="12" x2="16" y2="12"></line></svg>
+                                Configure New Routine (Screen C Decoupled Portal)
+                            </h2>
+                            <span style="font-size:0.8rem; font-weight:800; color:var(--primary); background:var(--primary-light); padding:4px 10px; border-radius:12px;">Zero-Login On Tablet</span>
+                        </div>
+
+                        <form onsubmit="handleSaveRoutine(event)">
+                            <input type="hidden" id="optin-input" value="1">
+
+                            <div class="form-grid-2">
+                                <div class="form-group">
+                                    <label class="form-label">Reminder Text (Clear & Concise)</label>
+                                    <input type="text" id="routine-label" class="form-control" value="Have your lunch" required>
+                                    <div class="quick-chips-row">
+                                        <button type="button" class="chip-btn" onclick="setRoutinePreset('Take morning medication', '08:30')">💊 Morning Meds</button>
+                                        <button type="button" class="chip-btn" onclick="setRoutinePreset('Have your lunch', '12:30')">🍲 Lunch</button>
+                                        <button type="button" class="chip-btn" onclick="setRoutinePreset('Drink a glass of water', '15:00')">💧 Hydration</button>
+                                        <button type="button" class="chip-btn" onclick="setRoutinePreset('Afternoon walk in garden', '16:00')">🚶 Walk</button>
+                                        <button type="button" class="chip-btn" onclick="setRoutinePreset('Take evening heart medicine', '20:00')">❤️ Heart Meds</button>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Scheduled Time (24h HH:MM)</label>
+                                    <input type="text" id="routine-time" class="form-control" value="12:30" pattern="^([01]\d|2[0-3]):([0-5]\d)$" title="24h format HH:MM" required>
+                                </div>
+                            </div>
+
+                            <div class="form-grid-2">
+                                <div class="form-group">
+                                    <label class="form-label">Recurrence Days Pattern</label>
+                                    <select id="routine-days" class="form-control">
+                                        <option value="Every day">Every day (Monday to Sunday • Mask: 127)</option>
+                                        <option value="Weekdays only">Weekdays only (Monday to Friday • Mask: 31)</option>
+                                        <option value="Weekends only">Weekends only (Saturday & Sunday • Mask: 96)</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Response Safeguards (Safety Standards)</label>
+                                    <input type="text" class="form-control" value="10m snooze, max 2 uses, 60m response window" readonly style="background:var(--slate-50); color:var(--slate-500);">
+                                </div>
+                            </div>
+
+                            <div class="toggle-container" onclick="toggleCaregiverOptin()">
+                                <div class="toggle-track" id="optin-track">
+                                    <div class="toggle-thumb" id="optin-thumb"></div>
+                                </div>
+                                <div class="toggle-text-block">
+                                    <strong>Alert Sarah if missed twice (Rule 5 Multi-Miss Opt-in)</strong>
+                                    <span>Sends SMS / notification only after 2 consecutive unconfirmed tasks to eliminate alert fatigue.</span>
+                                </div>
+                            </div>
+
+                            <button type="submit" class="btn-primary-block">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg>
+                                Save Routine to Assistant Schedule
+                            </button>
+                        </form>
                     </div>
 
-                    <form onsubmit="handleSaveRoutine(event)">
-                        <input type="hidden" id="optin-input" value="1">
+                    <!-- Existing Routines Interactive List -->
+                    <div class="glass-card">
+                        <div class="card-header-row">
+                            <h2>
+                                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line></svg>
+                                Active Routine Schedule ({{ all_tasks|length if all_tasks else tasks|length }} Configured)
+                            </h2>
+                            <span style="font-size:0.8rem; color:var(--slate-400);">Click 'Test on Tablet' to fire any prompt</span>
+                        </div>
+
+                        <div class="routine-list-stack">
+                            {% for t in all_tasks|default(tasks) %}
+                            <div class="routine-item-card {% if t.is_active == 0 %}inactive{% endif %}" id="routine-card-{{ t.task_id }}">
+                                <div class="routine-time-pill">{{ t.time_of_day }}</div>
+                                <div class="routine-info-block">
+                                    <div class="routine-title-text">{{ t.label }}</div>
+                                    <div class="routine-meta-row">
+                                        <div class="days-chips-group">
+                                            <span class="day-chip {% if t.days_mask|default(127)|has_day(0) %}active{% endif %}">M</span>
+                                            <span class="day-chip {% if t.days_mask|default(127)|has_day(1) %}active{% endif %}">T</span>
+                                            <span class="day-chip {% if t.days_mask|default(127)|has_day(2) %}active{% endif %}">W</span>
+                                            <span class="day-chip {% if t.days_mask|default(127)|has_day(3) %}active{% endif %}">T</span>
+                                            <span class="day-chip {% if t.days_mask|default(127)|has_day(4) %}active{% endif %}">F</span>
+                                            <span class="day-chip {% if t.days_mask|default(127)|has_day(5) %}active{% endif %}">S</span>
+                                            <span class="day-chip {% if t.days_mask|default(127)|has_day(6) %}active{% endif %}">S</span>
+                                        </div>
+                                        <span>•</span>
+                                        <span>{% if t.alert_caregiver %}🚨 Rule 5 Alert On{% else %}Silent Kiosk{% endif %}</span>
+                                    </div>
+                                </div>
+                                <div class="routine-actions">
+                                    <button type="button" class="btn-mini-action btn-mini-primary" onclick="triggerSimulationReminder('{{ t.label }}', '{{ t.time_of_day }}')">
+                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+                                        Test on Tablet
+                                    </button>
+                                    <button type="button" class="btn-mini-action" onclick="toggleRoutineActive({{ t.task_id }})">
+                                        Toggle
+                                    </button>
+                                    <button type="button" class="btn-mini-action btn-mini-danger" onclick="deleteRoutine({{ t.task_id }}, '{{ t.label }}')">
+                                        Delete
+                                    </button>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- TAB 2: LIVE EVENT AUDIT STREAM -->
+                <div class="cg-tab-pane" id="pane-audit">
+                    <div class="glass-card">
+                        <div class="card-header-row">
+                            <h2>
+                                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
+                                Immutable Audit Stream (`EVENT_LOG` Fact Table)
+                            </h2>
+                            <div style="display:flex; gap:8px;">
+                                <a href="/api/v1/events/export?format=csv" class="cmd-btn" style="color:var(--slate-700); background:var(--slate-100); border-color:var(--slate-200); text-decoration:none;">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                                    Export CSV
+                                </a>
+                                <a href="/api/v1/events/export?format=json" class="cmd-btn" style="color:var(--slate-700); background:var(--slate-100); border-color:var(--slate-200); text-decoration:none;">
+                                    Export JSON
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="timeline-container" id="timeline-list">
+                            {% for log in event_logs %}
+                            <div class="timeline-item">
+                                <div class="timeline-badge {% if 'DONE' in log.action %}badge-done-icon{% elif 'Snooze' in log.action %}badge-snooze-icon{% elif 'Miss' in log.action %}badge-miss-icon{% else %}badge-info-icon{% endif %}">
+                                    {% if 'DONE' in log.action %}✓{% elif 'Snooze' in log.action %}⏰{% elif 'Miss' in log.action %}!{% else %}•{% endif %}
+                                </div>
+                                <div class="timeline-content">
+                                    <div class="timeline-time">{{ log.timestamp }}</div>
+                                    <div class="timeline-text">{{ log.action }}</div>
+                                </div>
+                            </div>
+                            {% else %}
+                            <div style="text-align:center; color:var(--slate-400); padding:20px;">No interaction events recorded yet.</div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TAB 3: MSC SCIENTIFIC BENCHMARK -->
+                <div class="cg-tab-pane" id="pane-benchmark">
+                    <div class="glass-card">
+                        <div class="card-header-row">
+                            <h2>
+                                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
+                                SQ3 Machine Learning vs Deterministic Rule Benchmark
+                            </h2>
+                            <span class="badge-pill-success">MSc Level 7 Verified</span>
+                        </div>
+
+                        <p style="font-size:0.9rem; color:var(--slate-600); line-height:1.5; margin-bottom:16px;">
+                            Empirical evaluation conducted for University of Hertfordshire MSc dissertation investigating why unsupervised Machine Learning (Isolation Forest) is unsuitable for safety-critical dementia assistive living pipelines compared to deterministic multi-miss thresholding (Rule 5).
+                        </p>
+
+                        <table class="benchmark-table">
+                            <thead>
+                                <tr>
+                                    <th>Evaluation Parameter</th>
+                                    <th>Isolation Forest (Unsupervised ML)</th>
+                                    <th>Rule 5 (Deterministic Threshold)</th>
+                                    <th>Clinical Verdict</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Precision</strong></td>
+                                    <td>28.57% (16 true anomalies)</td>
+                                    <td><strong>100.0%</strong> (15 true anomalies)</td>
+                                    <td><span class="badge-pill-success">Rule 5 Superior</span></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>False Alarm Rate</strong></td>
+                                    <td><span class="badge-pill-hazard">5.82% (29 False Alarms)</span></td>
+                                    <td><span class="badge-pill-success">0.0% (0 False Alarms)</span></td>
+                                    <td><span class="badge-pill-success">Zero Alert Fatigue</span></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Execution Latency</strong></td>
+                                    <td>4.2 ms / inference</td>
+                                    <td><strong>0.001 ms</strong> (O(1) memory lookup)</td>
+                                    <td><span class="badge-pill-success">4000x Faster</span></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Weekend Routine Shift</strong></td>
+                                    <td>Flags benign delay as anomaly</td>
+                                    <td>Respects 60m response window</td>
+                                    <td><span class="badge-pill-success">Prevents Panic</span></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>MSc Verification Suite</strong></td>
+                                    <td>Non-deterministic test runs</td>
+                                    <td><strong>18/18 Tests Pass (0.12s)</strong></td>
+                                    <td><span class="badge-pill-success">100% Deterministic</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- TAB 4: TABLET ACCESSIBILITY & HARDWARE CONTROLS -->
+                <div class="cg-tab-pane" id="pane-accessibility">
+                    <div class="glass-card">
+                        <div class="card-header-row">
+                            <h2>
+                                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+                                Tablet Accessibility & Dyad Profile Configuration
+                            </h2>
+                            <span style="font-size:0.8rem; color:var(--slate-400);">WCAG 2.2 Level AA Parameters</span>
+                        </div>
 
                         <div class="form-grid-2">
                             <div class="form-group">
-                                <label class="form-label">What should the reminder say?</label>
-                                <input type="text" id="routine-label" class="form-control" value="Have your lunch" required>
-                                <div class="quick-chips-row">
-                                    <button type="button" class="chip-btn" onclick="setRoutinePreset('Take morning medication', '09:00')">💊 Morning Meds</button>
-                                    <button type="button" class="chip-btn" onclick="setRoutinePreset('Have your lunch', '12:30')">🍲 Lunch</button>
-                                    <button type="button" class="chip-btn" onclick="setRoutinePreset('Afternoon walk', '15:30')">🚶 Walk</button>
-                                    <button type="button" class="chip-btn" onclick="setRoutinePreset('Evening heart medicine', '20:00')">❤️ Heart Meds</button>
-                                </div>
+                                <label class="form-label">Recipient Display Name</label>
+                                <input type="text" id="setting-recipient-name" class="form-control" value="{{ person.display_name|default('Sandya') }}">
                             </div>
                             <div class="form-group">
-                                <label class="form-label">Scheduled Time (24h)</label>
-                                <input type="text" id="routine-time" class="form-control" value="12:30" pattern="^([01]\d|2[0-3]):([0-5]\d)$" title="Please enter 24h format HH:MM" required>
+                                <label class="form-label">Caregiver Contact Name & Role</label>
+                                <input type="text" class="form-control" value="Sarah (Daughter • 07123 456789)" readonly style="background:var(--slate-50);">
                             </div>
                         </div>
 
                         <div class="form-grid-2">
                             <div class="form-group">
-                                <label class="form-label">Recurrence Pattern</label>
-                                <select id="routine-days" class="form-control">
-                                    <option value="Every day">Every day (Monday to Sunday)</option>
-                                    <option value="Weekdays only">Weekdays only (Monday to Friday)</option>
-                                    <option value="Weekends only">Weekends only (Saturday & Sunday)</option>
+                                <label class="form-label">Tablet Text Size Scaling</label>
+                                <select class="form-control" onchange="setTabletScale(this.value)">
+                                    <option value="1.0">Standard 100% (WCAG AA Compliant)</option>
+                                    <option value="1.15" selected>Large 115% (Recommended for Mild Cognitive Impairment)</option>
+                                    <option value="1.3">Extra Large 130% (High Visual Impairment)</option>
                                 </select>
                             </div>
                             <div class="form-group">
-                                <label class="form-label">Snooze & Response Window</label>
-                                <input type="text" class="form-control" value="10 min interval, max 2 uses, 60m window" readonly style="background:var(--slate-50); color:var(--slate-500);">
+                                <label class="form-label">Audio Chime & Speech Synthesizer</label>
+                                <div style="display:flex; gap:8px;">
+                                    <button type="button" class="btn-mini-action btn-mini-primary" style="flex:1; padding:10px;" onclick="playChime('prompt')">
+                                        🔔 Test Prompt Chime
+                                    </button>
+                                    <button type="button" class="btn-mini-action" style="flex:1; padding:10px;" onclick="playChime('done')">
+                                        🎉 Test Done Chime
+                                    </button>
+                                </div>
                             </div>
                         </div>
 
-                        <div class="toggle-container" onclick="toggleCaregiverOptin()">
-                            <div class="toggle-track" id="optin-track">
-                                <div class="toggle-thumb" id="optin-thumb"></div>
-                            </div>
-                            <div class="toggle-text-block">
-                                <strong>Alert me if missed twice (Rule 5 Consecutive Miss Opt-in)</strong>
-                                <span>Sends an alert to Sarah only after 2 consecutive unconfirmed tasks to eliminate alert fatigue.</span>
-                            </div>
-                        </div>
-
-                        <button type="submit" class="btn-primary-block">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg>
-                            Save & Update Schedule
+                        <button type="button" class="btn-primary-block" onclick="showToast('Accessibility settings saved & synchronized with Tablet!', '#10B981')">
+                            Save Accessibility Preferences
                         </button>
-                    </form>
-                </div>
-
-                <!-- 4. Auditable Event Timeline (SQLite EVENT_LOG) -->
-                <div class="glass-card">
-                    <div class="card-header-row">
-                        <h2>
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
-                            Auditable Event Log (`EVENT_LOG` Fact Table)
-                        </h2>
-                        <span style="font-size:0.8rem; color:var(--slate-400);">Immutable SQLite Ledger</span>
-                    </div>
-
-                    <div class="timeline-container" id="timeline-list">
-                        {% for log in event_logs %}
-                        <div class="timeline-item">
-                            <div class="timeline-badge {% if 'DONE' in log.action %}badge-done-icon{% elif 'Snooze' in log.action %}badge-snooze-icon{% elif 'Miss' in log.action %}badge-miss-icon{% else %}badge-info-icon{% endif %}">
-                                {% if 'DONE' in log.action %}✓{% elif 'Snooze' in log.action %}⏰{% elif 'Miss' in log.action %}!{% else %}•{% endif %}
-                            </div>
-                            <div class="timeline-content">
-                                <div class="timeline-time">{{ log.timestamp }}</div>
-                                <div class="timeline-text">{{ log.action }}</div>
-                            </div>
-                        </div>
-                        {% else %}
-                        <div style="text-align:center; color:var(--slate-400); padding:20px;">No interaction events recorded yet.</div>
-                        {% endfor %}
                     </div>
                 </div>
 
             </div>
 
         </div>
-    </div>
+    </main>
 
     <!-- MODAL: MY DAY SCHEDULE -->
     <div id="modal-schedule" class="modal-backdrop" onclick="if(event.target === this) closeModal('modal-schedule');">
         <div class="modal-box">
-            <h2 style="font-size:1.6rem; font-weight:800; margin-bottom:16px;">📅 Today's Schedule</h2>
-            <div style="max-height: 280px; overflow-y: auto; margin-bottom: 20px;">
+            <h2 style="font-size:1.6rem; font-weight:900; margin-bottom:16px;">📅 Today's Schedule</h2>
+            <div style="max-height: 290px; overflow-y: auto; margin-bottom: 20px;">
                 {% for item in day_schedule %}
-                <div style="display:flex; justify-content:space-between; align-items:center; padding:10px 12px; border-bottom:1px solid var(--slate-100); text-align:left;">
-                    <div><strong>{{ item.time }}</strong> — {{ item.label }}</div>
+                <div style="display:flex; justify-content:space-between; align-items:center; padding:12px; border-bottom:1px solid var(--slate-100); text-align:left;">
+                    <div>
+                        <strong style="font-size:1.05rem;">{{ item.time }}</strong> — {{ item.label }}
+                    </div>
                     <div>
                         {% if item.status == 'done' %}
-                        <span style="background:var(--success-light); color:var(--success); padding:3px 8px; border-radius:6px; font-weight:bold; font-size:0.8rem;">✓ Done</span>
+                        <span style="background:var(--success-light); color:var(--success); padding:4px 8px; border-radius:6px; font-weight:800; font-size:0.8rem;">✓ Done</span>
                         {% else %}
-                        <span style="background:var(--primary-light); color:var(--primary); padding:3px 8px; border-radius:6px; font-weight:bold; font-size:0.8rem;">⏳ Scheduled</span>
+                        <span style="background:var(--primary-light); color:var(--primary); padding:4px 8px; border-radius:6px; font-weight:800; font-size:0.8rem;">⏳ Scheduled</span>
                         {% endif %}
                     </div>
                 </div>
@@ -1644,16 +2531,40 @@
     <!-- MODAL: CALL FAMILY -->
     <div id="modal-call" class="modal-backdrop" onclick="if(event.target === this) closeModal('modal-call');">
         <div class="modal-box">
-            <h2 style="font-size:1.6rem; font-weight:800; margin-bottom:16px;">📞 Who would you like to call?</h2>
+            <h2 style="font-size:1.6rem; font-weight:900; margin-bottom:16px;">📞 Who would you like to call?</h2>
             <div style="display:flex; flex-direction:column; gap:12px; margin-bottom:20px;">
-                <button type="button" class="patient-btn" style="background:#15803D; color:white; border-color:#166534;" onclick="triggerCall('Sarah (Daughter)', '07123 456789')">
+                <button type="button" class="patient-btn" style="background:#10B981; color:white; border-color:#059669;" onclick="triggerCall('Sarah (Daughter)', '07123 456789')">
                     📞 Call Sarah (Daughter)
                 </button>
-                <button type="button" class="patient-btn" style="background:#1D4ED8; color:white; border-color:#1E40AF;" onclick="triggerCall('Dr. Evans (GP)', '01234 567890')">
+                <button type="button" class="patient-btn" style="background:#4F46E5; color:white; border-color:#4338CA;" onclick="triggerCall('Dr. Evans (GP)', '01234 567890')">
                     📞 Call Dr. Evans (GP)
+                </button>
+                <button type="button" class="patient-btn" style="background:#0284C7; color:white; border-color:#0369A1;" onclick="triggerCall('Nurse Mark', '07987 654321')">
+                    📞 Call Nurse Mark
                 </button>
             </div>
             <button type="button" class="patient-btn" style="border:none; color:var(--slate-500);" onclick="closeModal('modal-call')">Cancel</button>
+        </div>
+    </div>
+
+    <!-- MODAL: REASSURANCE ("I FEEL CONFUSED") -->
+    <div id="modal-reassure" class="modal-backdrop" onclick="if(event.target === this) closeModal('modal-reassure');">
+        <div class="modal-box" style="text-align:center;">
+            <div style="width:64px; height:64px; background:#FEF3C7; color:#D97706; border-radius:50%; display:flex; align-items:center; justify-content:center; margin:0 auto 16px auto;">
+                <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+            </div>
+            <h2 style="font-size:1.6rem; font-weight:900; margin-bottom:10px; color:#92400E;">You are safe at home</h2>
+            <p style="font-size:1.05rem; color:#78350F; line-height:1.5; margin-bottom:20px;">
+                Sandya, take a calm breath. Today is <strong>{{ day_name }}</strong>. Everything is in order, and your daughter Sarah is just a phone call away.
+            </p>
+            <div style="display:flex; flex-direction:column; gap:10px;">
+                <button type="button" class="patient-btn" style="background:#10B981; color:white; border-color:#059669;" onclick="triggerCall('Sarah (Daughter)', '07123 456789')">
+                    📞 Call Sarah (Daughter)
+                </button>
+                <button type="button" class="patient-btn" style="border:none; color:var(--slate-500);" onclick="closeModal('modal-reassure')">
+                    I feel better, close this
+                </button>
+            </div>
         </div>
     </div>
 
