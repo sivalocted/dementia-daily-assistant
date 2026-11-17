@@ -3,97 +3,177 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Daily Living Assistant - Complete Unified Application</title>
+    <title>Daily Living Assistant - Production Studio</title>
+    <link rel="manifest" href="/static/manifest.json">
+    <meta name="theme-color" content="#0F172A">
     <style>
         :root {
-            --frame-border: #1B2A38;
-            --text-dark: #1A202C;
-            --text-muted: #64748B;
-            --blue-accent: #2563EB;
-            --blue-border: #3182CE;
-            --blue-bg: #F0F7FF;
-            --green-done: #1B7A3E;
-            --green-done-hover: #166534;
-            --border-gray: #CBD5E0;
-            --card-bg: #FFFFFF;
+            --primary: #2563EB;
+            --primary-hover: #1D4ED8;
+            --primary-light: #EFF6FF;
+            --success: #15803D;
+            --success-hover: #166534;
+            --success-light: #DCFCE7;
+            --warning: #D97706;
+            --warning-light: #FEF3C7;
+            --danger: #DC2626;
+            --danger-light: #FEE2E2;
+            --slate-900: #0F172A;
+            --slate-800: #1E293B;
+            --slate-700: #334155;
+            --slate-600: #475569;
+            --slate-500: #64748B;
+            --slate-400: #94A3B8;
+            --slate-200: #E2E8F0;
+            --slate-100: #F1F5F9;
+            --slate-50: #F8FAFC;
+            --card-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.06), 0 8px 10px -6px rgba(15, 23, 42, 0.04);
+            --card-shadow-lg: 0 25px 50px -12px rgba(15, 23, 42, 0.12);
+            --tablet-bezel: #1E293B;
+            --radius-xl: 24px;
+            --radius-lg: 16px;
+            --radius-md: 12px;
+            --radius-sm: 8px;
+            --transition-smooth: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            --transition-fast: all 0.15s ease;
         }
 
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
+            -webkit-font-smoothing: antialiased;
         }
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-            background-color: #F1F5F9;
-            color: var(--text-dark);
+            background: linear-gradient(135deg, #F8FAFC 0%, #EFF6FF 50%, #F1F5F9 100%);
+            color: var(--slate-900);
             min-height: 100vh;
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding: 16px 20px 40px 20px;
+            padding: 16px 20px 48px 20px;
+            overflow-x: hidden;
         }
 
-        /* Top Simulation Bar */
-        .demo-bar {
+        /* -------------------------------------------------------------
+           1. TOP INTERACTIVE COMMAND BAR (FROSTED GLASS)
+        ------------------------------------------------------------- */
+        .command-bar {
             width: 100%;
-            max-width: 1320px;
-            background: #0F172A;
+            max-width: 1360px;
+            background: rgba(15, 23, 42, 0.92);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
             color: #FFFFFF;
             padding: 10px 20px;
-            border-radius: 14px;
-            margin-bottom: 16px;
+            border-radius: var(--radius-lg);
+            margin-bottom: 20px;
             display: flex;
             align-items: center;
             justify-content: space-between;
             flex-wrap: wrap;
             gap: 12px;
-            box-shadow: 0 4px 16px rgba(0,0,0,0.18);
+            box-shadow: 0 12px 32px rgba(15, 23, 42, 0.18);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            position: sticky;
+            top: 12px;
+            z-index: 1000;
         }
-        .demo-bar-title {
-            font-size: 0.96rem;
-            font-weight: 700;
+
+        .command-brand {
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
+            font-size: 0.95rem;
+            font-weight: 700;
+            letter-spacing: -0.01em;
         }
-        .demo-actions {
+
+        .live-indicator {
+            width: 8px;
+            height: 8px;
+            background-color: #22C55E;
+            border-radius: 50%;
+            box-shadow: 0 0 10px #22C55E;
+            animation: pulse-live 2s infinite;
+        }
+
+        @keyframes pulse-live {
+            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7); }
+            70% { transform: scale(1.1); box-shadow: 0 0 0 6px rgba(34, 197, 94, 0); }
+            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); }
+        }
+
+        .command-actions {
             display: flex;
+            align-items: center;
             gap: 8px;
             flex-wrap: wrap;
         }
-        .btn-demo {
-            background: #2563EB;
+
+        .cmd-btn {
+            background: rgba(255, 255, 255, 0.1);
             color: #FFFFFF;
-            border: none;
-            padding: 7px 15px;
-            border-radius: 8px;
-            font-size: 0.88rem;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            padding: 7px 14px;
+            border-radius: var(--radius-sm);
+            font-size: 0.85rem;
             font-weight: 600;
             cursor: pointer;
-            transition: all 0.15s ease;
-            text-decoration: none;
+            transition: var(--transition-fast);
             display: inline-flex;
             align-items: center;
             gap: 6px;
+            text-decoration: none;
         }
-        .btn-demo:hover { background: #1D4ED8; transform: translateY(-1px); }
-        .btn-demo-orange { background: #F59E0B; }
-        .btn-demo-orange:hover { background: #D97706; }
-        .btn-demo-red { background: #EF4444; }
-        .btn-demo-red:hover { background: #DC2626; }
 
-        /* Unified App Header & Tab Switcher */
+        .cmd-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-1px);
+        }
+
+        .cmd-btn:active {
+            transform: translateY(0);
+        }
+
+        .cmd-btn-primary {
+            background: var(--primary);
+            border-color: var(--primary);
+        }
+        .cmd-btn-primary:hover {
+            background: var(--primary-hover);
+        }
+
+        .cmd-btn-warning {
+            background: var(--warning);
+            border-color: var(--warning);
+        }
+        .cmd-btn-warning:hover {
+            background: #B45309;
+        }
+
+        .cmd-btn-danger {
+            background: var(--danger);
+            border-color: var(--danger);
+        }
+        .cmd-btn-danger:hover {
+            background: #B91C1C;
+        }
+
+        /* -------------------------------------------------------------
+           2. HEADER & WORKSPACE VIEW MODE SWITCHER
+        ------------------------------------------------------------- */
         .app-header {
             width: 100%;
-            max-width: 1320px;
+            max-width: 1360px;
             background: #FFFFFF;
-            padding: 14px 24px;
-            border-radius: 16px;
-            border: 2px solid var(--border-gray);
+            padding: 16px 28px;
+            border-radius: var(--radius-xl);
+            border: 1px solid var(--slate-200);
             margin-bottom: 24px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.04);
+            box-shadow: var(--card-shadow);
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -101,697 +181,1087 @@
             gap: 16px;
         }
 
-        .app-title-group h1 {
-            font-size: 1.35rem;
+        .header-title-block h1 {
+            font-size: 1.45rem;
             font-weight: 800;
-            color: #0D47A1;
+            letter-spacing: -0.025em;
+            color: var(--slate-900);
             display: flex;
             align-items: center;
-            gap: 8px;
-        }
-        .app-subtitle {
-            font-size: 0.88rem;
-            color: var(--text-muted);
-            margin-top: 2px;
+            gap: 10px;
         }
 
-        .view-tabs {
-            display: flex;
-            background: #F1F5F9;
+        .header-subtitle {
+            font-size: 0.88rem;
+            color: var(--slate-500);
+            margin-top: 3px;
+            font-weight: 500;
+        }
+
+        .view-switcher {
+            display: inline-flex;
+            background: var(--slate-100);
             padding: 4px;
-            border-radius: 12px;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--slate-200);
             gap: 4px;
         }
-        .tab-btn {
+
+        .view-tab-btn {
             background: transparent;
             border: none;
             padding: 8px 18px;
-            border-radius: 10px;
-            font-size: 0.95rem;
+            border-radius: var(--radius-sm);
+            font-size: 0.88rem;
             font-weight: 700;
-            color: #475569;
+            color: var(--slate-600);
             cursor: pointer;
-            transition: all 0.15s ease;
-        }
-        .tab-btn.active {
-            background: #FFFFFF;
-            color: #0D47A1;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+            transition: var(--transition-fast);
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
         }
 
-        /* Main Workspace Container */
+        .view-tab-btn.active {
+            background: #FFFFFF;
+            color: var(--primary);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        }
+
+        /* -------------------------------------------------------------
+           3. MAIN STUDIO WORKSPACE (SIDE-BY-SIDE INTEGRATION)
+        ------------------------------------------------------------- */
         .workspace {
             width: 100%;
-            max-width: 1320px;
+            max-width: 1360px;
         }
 
-        /* 1. LIVE STUDIO VIEW (ALL 3 INTEGRATED SIDE-BY-SIDE) */
-        .studio-layout {
+        .studio-grid {
             display: grid;
-            grid-template-columns: 370px 1fr;
+            grid-template-columns: 380px 1fr;
             gap: 32px;
             align-items: flex-start;
+            transition: var(--transition-smooth);
         }
-        @media (max-width: 1024px) {
-            .studio-layout {
+
+        /* Responsive Layouts */
+        .workspace.mode-tablet .studio-grid {
+            grid-template-columns: 1fr;
+            justify-items: center;
+        }
+        .workspace.mode-tablet .caregiver-column {
+            display: none !important;
+        }
+
+        .workspace.mode-caregiver .studio-grid {
+            grid-template-columns: 1fr;
+        }
+        .workspace.mode-caregiver .tablet-column {
+            display: none !important;
+        }
+
+        @media (max-width: 1080px) {
+            .studio-grid {
                 grid-template-columns: 1fr;
                 justify-items: center;
             }
         }
 
-        /* Tablet Frame (Exact Design from Figure A2.1) */
-        .tablet-device {
-            width: 370px;
-            height: 650px;
-            background-color: #FFFFFF;
-            border: 4px solid var(--frame-border);
-            border-radius: 38px;
-            padding: 28px 24px;
+        /* -------------------------------------------------------------
+           4. ULTRA-REALISTIC TABLET CHASSIS (PATIENT SURFACE)
+        ------------------------------------------------------------- */
+        .tablet-column {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+        }
+
+        .tablet-section-badge {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--slate-500);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .tablet-chassis {
+            width: 375px;
+            height: 670px;
+            background: #0F172A;
+            border-radius: 46px;
+            padding: 18px 14px;
+            box-shadow: 0 25px 60px -15px rgba(15, 23, 42, 0.35), 0 0 0 1px rgba(255, 255, 255, 0.1) inset;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            transition: var(--transition-smooth);
+        }
+
+        /* Top Notch / Camera Dot */
+        .tablet-sensor-bar {
+            width: 100%;
+            height: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            margin-bottom: 4px;
+        }
+
+        .camera-dot {
+            width: 7px;
+            height: 7px;
+            background: #334155;
+            border-radius: 50%;
+            box-shadow: inset 0 0 2px #000;
+        }
+
+        /* Tablet Display Screen */
+        .tablet-display {
+            width: 100%;
+            flex: 1;
+            background: #FFFFFF;
+            border-radius: 34px;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.04);
+        }
+
+        /* Screen Stage Transition Container */
+        .screen-stage {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stage-view {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            padding: 24px 20px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            box-shadow: 0 16px 40px rgba(0,0,0,0.12);
-            position: relative;
-            overflow: hidden;
-            flex-shrink: 0;
+            transition: opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1), transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+            background: #FFFFFF;
         }
 
-        .device-badge {
+        .stage-view.view-hidden-left {
+            opacity: 0;
+            transform: translateX(-35px) scale(0.96);
+            pointer-events: none;
+        }
+
+        .stage-view.view-hidden-right {
+            opacity: 0;
+            transform: translateX(35px) scale(0.96);
+            pointer-events: none;
+        }
+
+        .stage-view.view-active {
+            opacity: 1;
+            transform: translateX(0) scale(1);
+            pointer-events: auto;
+        }
+
+        /* Screen Tag Pill */
+        .screen-tag-pill {
             position: absolute;
-            top: 10px;
+            top: 14px;
             right: 18px;
-            font-size: 0.75rem;
+            font-size: 0.72rem;
             font-weight: 800;
-            background: #E2E8F0;
-            color: #475569;
             padding: 3px 8px;
             border-radius: 6px;
             text-transform: uppercase;
+            letter-spacing: 0.04em;
+            background: var(--slate-100);
+            color: var(--slate-600);
+            border: 1px solid var(--slate-200);
+            z-index: 10;
         }
 
-        /* Screen A: Home Screen Inside Tablet */
-        #view-screen-a {
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            height: 100%;
-            transition: opacity 0.25s ease;
-        }
-
-        .home-top {
+        /* -------------------------------------------------------------
+           5. SCREEN A: HOME & ORIENTATION INTERFACE
+        ------------------------------------------------------------- */
+        .home-orientation {
             text-align: center;
-            margin-top: 4px;
+            margin-top: 6px;
         }
-        .home-day {
+
+        .home-day-title {
             font-size: 2.3rem;
             font-weight: 800;
-            color: #1A202C;
-            margin-bottom: 2px;
-        }
-        .home-date {
-            font-size: 1.25rem;
-            color: #2D3748;
-            margin-bottom: 6px;
-        }
-        .home-clock {
-            font-size: 4.6rem;
-            font-weight: 800;
-            color: #1B2A38;
-            line-height: 1;
-            margin: 4px 0;
-            letter-spacing: -1.5px;
-        }
-        .home-part {
-            font-size: 1.25rem;
-            color: #718096;
-            font-weight: 500;
+            color: var(--slate-900);
+            letter-spacing: -0.03em;
+            line-height: 1.1;
         }
 
-        .home-next-box {
-            background-color: #F0F7FF;
-            border: 3px solid #3182CE;
-            border-radius: 18px;
+        .home-date-subtitle {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--slate-600);
+            margin-top: 4px;
+        }
+
+        .home-giant-clock {
+            font-size: 4.8rem;
+            font-weight: 900;
+            letter-spacing: -0.04em;
+            color: var(--slate-900);
+            font-variant-numeric: tabular-nums;
+            line-height: 1;
+            margin: 10px 0 6px 0;
+        }
+
+        .home-part-badge {
+            display: inline-block;
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--slate-500);
+        }
+
+        /* Next Reminder Interactive Card */
+        .home-next-card {
+            background: linear-gradient(135deg, #F0F7FF 0%, #E0F2FE 100%);
+            border: 2px solid #38BDF8;
+            border-radius: 20px;
             padding: 18px 16px;
             text-align: center;
-            margin: 18px 0;
+            margin: 16px 0;
             cursor: pointer;
-            transition: transform 0.1s ease;
-        }
-        .home-next-box:hover {
-            transform: scale(1.02);
-            background-color: #E6F2FF;
-        }
-        .home-next-label {
-            font-size: 1.05rem;
-            color: #718096;
-            margin-bottom: 4px;
-        }
-        .home-next-task {
-            font-size: 1.55rem;
-            font-weight: 800;
-            color: #1A202C;
+            transition: var(--transition-fast);
+            box-shadow: 0 4px 14px rgba(56, 189, 248, 0.15);
         }
 
-        .home-actions {
+        .home-next-card:hover {
+            transform: scale(1.02);
+            border-color: var(--primary);
+            box-shadow: 0 8px 20px rgba(37, 99, 235, 0.2);
+        }
+
+        .home-next-card:active {
+            transform: scale(0.99);
+        }
+
+        .next-card-lead {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            margin-bottom: 4px;
+        }
+
+        .next-card-title {
+            font-size: 1.55rem;
+            font-weight: 800;
+            color: var(--slate-900);
+            letter-spacing: -0.02em;
+        }
+
+        /* Patient Action Buttons */
+        .patient-button-grid {
             display: flex;
             flex-direction: column;
             gap: 12px;
-            margin-bottom: 4px;
+            margin-bottom: 6px;
         }
-        .home-row {
+
+        .patient-btn-row {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 12px;
         }
-        .home-btn {
-            background-color: #FFFFFF;
-            border: 3px solid #1B2A38;
+
+        .patient-btn {
+            background: #FFFFFF;
+            border: 3px solid var(--slate-800);
             border-radius: 18px;
-            padding: 14px 8px;
-            font-size: 1.2rem;
-            font-weight: 700;
-            color: #1A202C;
-            text-align: center;
-            cursor: pointer;
+            padding: 14px 10px;
+            font-size: 1.15rem;
+            font-weight: 800;
+            color: var(--slate-900);
             display: flex;
             align-items: center;
             justify-content: center;
+            gap: 8px;
+            cursor: pointer;
+            transition: var(--transition-fast);
             min-height: 58px;
-            transition: all 0.12s ease;
+            user-select: none;
         }
-        .home-btn:hover {
-            background-color: #F8FAFC;
+
+        .patient-btn:hover {
+            background: var(--slate-100);
+            transform: translateY(-1px);
         }
-        .home-btn-full {
+
+        .patient-btn:active {
+            transform: translateY(1px);
+            background: var(--slate-200);
+        }
+
+        .patient-btn-full {
             width: 100%;
         }
 
-        /* Screen B: Reminder Prompt Inside Tablet */
-        #view-screen-b {
-            display: none;
-            flex-direction: column;
-            justify-content: space-between;
-            height: 100%;
-            transition: opacity 0.25s ease;
+        /* -------------------------------------------------------------
+           6. SCREEN B: REMINDER PROMPT INTERFACE
+        ------------------------------------------------------------- */
+        .prompt-time-badge {
+            text-align: center;
+            font-size: 1.7rem;
+            font-weight: 600;
+            color: var(--slate-500);
+            margin-top: 8px;
+            font-variant-numeric: tabular-nums;
         }
 
-        .prompt-top-time {
-            text-align: center;
-            font-size: 1.8rem;
-            color: #718096;
-            font-weight: 500;
-            margin-top: 8px;
-        }
-        .prompt-center {
+        .prompt-main-body {
             text-align: center;
             margin: auto 0;
         }
-        .prompt-lead {
-            font-size: 1.7rem;
-            color: #2D3748;
+
+        .prompt-lead-text {
+            font-size: 1.6rem;
+            color: var(--slate-600);
+            font-weight: 600;
             margin-bottom: 6px;
         }
-        .prompt-main-task {
+
+        .prompt-task-headline {
             font-size: 2.85rem;
-            font-weight: 800;
-            color: #1A202C;
+            font-weight: 900;
+            color: var(--slate-900);
+            letter-spacing: -0.03em;
             line-height: 1.15;
-            margin-bottom: 12px;
-        }
-        .prompt-spoken-note {
-            font-size: 1.15rem;
-            font-style: italic;
-            color: #718096;
-            cursor: pointer;
-        }
-        .prompt-spoken-note:hover {
-            color: #2563EB;
-            text-decoration: underline;
+            margin-bottom: 14px;
         }
 
-        .prompt-actions {
+        .prompt-speech-note {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 1.05rem;
+            color: var(--primary);
+            font-weight: 600;
+            cursor: pointer;
+            padding: 6px 14px;
+            border-radius: 20px;
+            background: var(--primary-light);
+            transition: var(--transition-fast);
+        }
+
+        .prompt-speech-note:hover {
+            background: #DBEAFE;
+            transform: scale(1.02);
+        }
+
+        .prompt-actions-stack {
             display: flex;
             flex-direction: column;
             gap: 14px;
             margin-bottom: 6px;
         }
-        .btn-prompt-done {
-            background-color: #1B7A3E;
+
+        .btn-giant-done {
+            background: var(--success);
             color: #FFFFFF;
             border: none;
-            border-radius: 18px;
-            font-size: 2.4rem;
-            font-weight: 800;
-            letter-spacing: 1px;
+            border-radius: 20px;
+            font-size: 2.3rem;
+            font-weight: 900;
+            letter-spacing: 0.02em;
             padding: 16px;
             width: 100%;
             min-height: 80px;
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 6px 20px rgba(27, 122, 62, 0.3);
+            gap: 12px;
+            box-shadow: 0 8px 24px rgba(21, 128, 61, 0.35);
             cursor: pointer;
+            transition: var(--transition-fast);
+            user-select: none;
         }
-        .btn-prompt-done:hover {
-            background-color: #166534;
+
+        .btn-giant-done:hover {
+            background: var(--success-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 12px 28px rgba(21, 128, 61, 0.45);
         }
-        .btn-prompt-snooze {
-            background-color: #FFFFFF;
-            color: #1A202C;
-            border: 3px solid #1B2A38;
+
+        .btn-giant-done:active {
+            transform: translateY(1px);
+        }
+
+        .btn-snooze-action {
+            background: #FFFFFF;
+            border: 3px solid var(--slate-800);
             border-radius: 18px;
+            padding: 12px;
             font-size: 1.25rem;
-            font-weight: 700;
-            padding: 14px;
+            font-weight: 800;
+            color: var(--slate-900);
             width: 100%;
             min-height: 68px;
-            line-height: 1.25;
+            line-height: 1.2;
             text-align: center;
             cursor: pointer;
+            transition: var(--transition-fast);
             display: flex;
             align-items: center;
             justify-content: center;
+            gap: 8px;
+            user-select: none;
         }
-        .btn-prompt-snooze:hover {
-            background-color: #F8FAFC;
+
+        .btn-snooze-action:hover {
+            background: var(--slate-100);
         }
-        .prompt-footer-note {
+
+        .btn-snooze-action:active {
+            background: var(--slate-200);
+        }
+
+        .prompt-snooze-counter-note {
             text-align: center;
-            font-size: 0.95rem;
-            color: #718096;
-            margin-top: 8px;
-        }
-
-        /* Screen C & Dashboard Integration on Right Side */
-        .caregiver-console {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-
-        /* KPI Banner */
-        .kpi-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-            gap: 14px;
-        }
-        .kpi-card {
-            background: #FFFFFF;
-            border: 2px solid var(--border-gray);
-            border-radius: 16px;
-            padding: 16px 20px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.03);
-        }
-        .kpi-label {
-            font-size: 0.82rem;
-            font-weight: 700;
-            color: #64748B;
-            text-transform: uppercase;
-        }
-        .kpi-val {
-            font-size: 2.1rem;
-            font-weight: 800;
-            color: #1A202C;
-            margin: 4px 0 2px 0;
-        }
-        .kpi-desc {
-            font-size: 0.8rem;
-            color: #94A3B8;
-        }
-
-        /* Caregiver Setup Card */
-        .card {
-            background: #FFFFFF;
-            border: 2px solid var(--border-gray);
-            border-radius: 20px;
-            padding: 24px;
-            box-shadow: 0 4px 16px rgba(0,0,0,0.04);
-        }
-        .card-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 18px;
-        }
-        .card-header h2 {
-            font-size: 1.35rem;
-            font-weight: 800;
-            color: #1A202C;
-        }
-
-        /* Form Controls */
-        .form-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 14px;
-        }
-        .form-group {
-            margin-bottom: 14px;
-        }
-        .form-label {
-            display: block;
-            font-size: 0.95rem;
-            color: #64748B;
-            margin-bottom: 5px;
-            font-weight: 600;
-        }
-        .form-input {
-            width: 100%;
-            border: 2px solid #CBD5E0;
-            border-radius: 12px;
-            padding: 10px 14px;
-            font-size: 1.05rem;
-            color: #1A202C;
-            outline: none;
-            transition: border-color 0.15s ease;
-        }
-        .form-input:focus {
-            border-color: #2563EB;
-        }
-
-        .toggle-row {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            margin: 14px 0 18px 0;
-            cursor: pointer;
-        }
-        .toggle-switch {
-            width: 48px;
-            height: 26px;
-            background-color: #2563EB;
-            border-radius: 13px;
-            position: relative;
-            flex-shrink: 0;
-            transition: background-color 0.15s ease;
-        }
-        .toggle-knob {
-            width: 20px;
-            height: 20px;
-            background-color: #FFFFFF;
-            border-radius: 50%;
-            position: absolute;
-            top: 3px;
-            right: 3px;
-            transition: all 0.15s ease;
-        }
-        .toggle-label {
             font-size: 0.92rem;
-            color: #2D3748;
-            line-height: 1.3;
+            color: var(--slate-500);
+            font-weight: 500;
         }
 
-        .btn-save-routine {
-            background-color: #2563EB;
-            color: #FFFFFF;
-            border: none;
-            border-radius: 14px;
-            font-size: 1.25rem;
-            font-weight: 700;
-            padding: 12px;
-            width: 100%;
-            cursor: pointer;
-            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
-            transition: background 0.15s ease;
-        }
-        .btn-save-routine:hover {
-            background-color: #1D4ED8;
-        }
-
-        /* Data Tables */
-        .data-table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 0.93rem;
-        }
-        .data-table th, .data-table td {
-            padding: 10px 12px;
-            text-align: left;
-            border-bottom: 1px solid #E2E8F0;
-        }
-        .data-table th {
-            background: #F8FAFC;
-            font-weight: 700;
-            color: #475569;
-        }
-        .badge-optin {
-            background: #DBEAFE;
-            color: #1E40AF;
-            padding: 3px 8px;
-            border-radius: 6px;
-            font-size: 0.8rem;
-            font-weight: 700;
-        }
-
-        /* Alert Banner */
-        .alert-banner {
-            background: #FEF2F2;
-            border: 2px solid #EF4444;
-            border-radius: 16px;
-            padding: 16px 20px;
-            color: #991B1B;
-            display: none;
-        }
-
-        /* Success Done Overlay */
-        .done-overlay {
+        /* -------------------------------------------------------------
+           7. CELEBRATION / CONFIRMATION ANIMATED OVERLAY
+        ------------------------------------------------------------- */
+        .celebration-overlay {
             position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(27, 122, 62, 0.96);
-            color: white;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(21, 128, 61, 0.96) 0%, rgba(22, 101, 52, 0.98) 100%);
+            color: #FFFFFF;
             display: none;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             z-index: 100;
-            border-radius: 34px;
             text-align: center;
             padding: 24px;
+            animation: fadeIn 0.25s ease-out;
         }
 
-        /* Modal Dialogs */
-        .modal-overlay {
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.96); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .celebration-icon {
+            width: 90px;
+            height: 90px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            animation: bounceIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        @keyframes bounceIn {
+            0% { transform: scale(0.3); opacity: 0; }
+            70% { transform: scale(1.15); }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .celebration-title {
+            font-size: 2.2rem;
+            font-weight: 900;
+            letter-spacing: -0.02em;
+            margin-bottom: 6px;
+        }
+
+        .celebration-desc {
+            font-size: 1.15rem;
+            font-weight: 500;
+            opacity: 0.9;
+        }
+
+        /* -------------------------------------------------------------
+           8. CAREGIVER CONSOLE & AUDIT DATABASE (RIGHT COLUMN)
+        ------------------------------------------------------------- */
+        .caregiver-column {
+            display: flex;
+            flex-direction: column;
+            gap: 22px;
+            width: 100%;
+        }
+
+        /* Metric KPI Summary Grid */
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+        }
+
+        .kpi-card {
+            background: #FFFFFF;
+            border: 1px solid var(--slate-200);
+            border-radius: var(--radius-lg);
+            padding: 18px 20px;
+            box-shadow: var(--card-shadow);
+            position: relative;
+            overflow: hidden;
+            transition: var(--transition-fast);
+        }
+
+        .kpi-card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--card-shadow-lg);
+        }
+
+        .kpi-card-label {
+            font-size: 0.82rem;
+            font-weight: 700;
+            color: var(--slate-500);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .kpi-card-value {
+            font-size: 2.3rem;
+            font-weight: 900;
+            color: var(--slate-900);
+            margin: 4px 0 2px 0;
+            letter-spacing: -0.03em;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .kpi-card-desc {
+            font-size: 0.8rem;
+            color: var(--slate-400);
+            font-weight: 500;
+        }
+
+        /* Card Panels */
+        .glass-card {
+            background: #FFFFFF;
+            border: 1px solid var(--slate-200);
+            border-radius: var(--radius-xl);
+            padding: 24px;
+            box-shadow: var(--card-shadow);
+        }
+
+        .card-header-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--slate-100);
+        }
+
+        .card-header-row h2 {
+            font-size: 1.25rem;
+            font-weight: 800;
+            color: var(--slate-900);
+            letter-spacing: -0.02em;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* Form Controls */
+        .form-grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 0.88rem;
+            font-weight: 700;
+            color: var(--slate-700);
+            margin-bottom: 6px;
+        }
+
+        .form-control {
+            width: 100%;
+            border: 1.5px solid var(--slate-200);
+            border-radius: var(--radius-md);
+            padding: 10px 14px;
+            font-size: 0.98rem;
+            color: var(--slate-900);
+            outline: none;
+            transition: var(--transition-fast);
+            background: #FFFFFF;
+        }
+
+        .form-control:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+        }
+
+        /* Quick-Pick Routine Chips */
+        .quick-chips-row {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+            margin-top: 6px;
+        }
+
+        .chip-btn {
+            background: var(--slate-100);
+            border: 1px solid var(--slate-200);
+            border-radius: 12px;
+            padding: 4px 10px;
+            font-size: 0.78rem;
+            font-weight: 600;
+            color: var(--slate-600);
+            cursor: pointer;
+            transition: var(--transition-fast);
+        }
+
+        .chip-btn:hover {
+            background: var(--primary-light);
+            color: var(--primary);
+            border-color: #BFDBFE;
+        }
+
+        /* Modern iOS-Style Toggle Switch */
+        .toggle-container {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin: 18px 0 22px 0;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .toggle-track {
+            width: 52px;
+            height: 28px;
+            background-color: var(--primary);
+            border-radius: 14px;
+            position: relative;
+            flex-shrink: 0;
+            transition: var(--transition-fast);
+        }
+
+        .toggle-thumb {
+            width: 22px;
+            height: 22px;
+            background-color: #FFFFFF;
+            border-radius: 50%;
+            position: absolute;
+            top: 3px;
+            right: 3px;
+            transition: var(--transition-fast);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .toggle-text-block strong {
+            display: block;
+            font-size: 0.95rem;
+            color: var(--slate-900);
+        }
+
+        .toggle-text-block span {
+            font-size: 0.82rem;
+            color: var(--slate-500);
+        }
+
+        .btn-primary-block {
+            background: var(--primary);
+            color: #FFFFFF;
+            border: none;
+            border-radius: var(--radius-md);
+            font-size: 1.15rem;
+            font-weight: 700;
+            padding: 13px 20px;
+            width: 100%;
+            cursor: pointer;
+            box-shadow: 0 4px 14px rgba(37, 99, 235, 0.3);
+            transition: var(--transition-fast);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .btn-primary-block:hover {
+            background: var(--primary-hover);
+            transform: translateY(-1px);
+        }
+
+        .btn-primary-block:active {
+            transform: translateY(0);
+        }
+
+        /* Timeline Audit Feed */
+        .timeline-container {
+            max-height: 250px;
+            overflow-y: auto;
+            padding-right: 6px;
+        }
+
+        .timeline-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 10px 0;
+            border-bottom: 1px solid var(--slate-100);
+        }
+
+        .timeline-badge {
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: 800;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .badge-done-icon { background: var(--success-light); color: var(--success); }
+        .badge-snooze-icon { background: var(--warning-light); color: var(--warning); }
+        .badge-miss-icon { background: var(--danger-light); color: var(--danger); }
+        .badge-info-icon { background: var(--primary-light); color: var(--primary); }
+
+        .timeline-content {
+            flex: 1;
+        }
+
+        .timeline-time {
+            font-size: 0.78rem;
+            font-weight: 600;
+            color: var(--slate-400);
+            font-family: monospace;
+        }
+
+        .timeline-text {
+            font-size: 0.92rem;
+            font-weight: 600;
+            color: var(--slate-800);
+            margin-top: 1px;
+        }
+
+        /* Urgent Escalation Alert Banner */
+        .escalation-banner {
+            background: var(--danger-light);
+            border: 2px solid var(--danger);
+            border-radius: var(--radius-lg);
+            padding: 16px 20px;
+            color: #991B1B;
+            display: none;
+            animation: pulse-alert 2s infinite;
+        }
+
+        @keyframes pulse-alert {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.4); }
+            50% { box-shadow: 0 0 0 8px rgba(220, 38, 38, 0); }
+        }
+
+        /* -------------------------------------------------------------
+           9. MODALS & TOAST NOTIFICATIONS
+        ------------------------------------------------------------- */
+        .modal-backdrop {
             display: none;
             position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.6);
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(15, 23, 42, 0.55);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
             z-index: 9999;
             align-items: center;
             justify-content: center;
-        }
-        .modal-card {
-            background: #FFFFFF;
-            border-radius: 24px;
-            padding: 32px;
-            max-width: 460px;
-            width: 90%;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
-            text-align: center;
+            padding: 20px;
         }
 
-        /* Toast */
-        .toast {
+        .modal-box {
+            background: #FFFFFF;
+            border-radius: var(--radius-xl);
+            padding: 32px 28px;
+            max-width: 480px;
+            width: 100%;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.25);
+            text-align: center;
+            animation: modalPop 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        @keyframes modalPop {
+            from { opacity: 0; transform: scale(0.92) translateY(10px); }
+            to { opacity: 1; transform: scale(1) translateY(0); }
+        }
+
+        .toast-bubble {
             position: fixed;
-            bottom: 24px;
-            right: 24px;
-            background: #1B7A3E;
+            bottom: 28px;
+            right: 28px;
+            background: var(--slate-900);
             color: #FFFFFF;
-            padding: 14px 24px;
-            border-radius: 12px;
-            font-size: 1.05rem;
+            padding: 14px 22px;
+            border-radius: var(--radius-md);
+            font-size: 0.95rem;
             font-weight: 700;
-            box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
             z-index: 10000;
             display: none;
-        }
-    </style>
-    <script>
-        // Web Audio Synthesizer
-        function playChime(type) {
-            try {
-                const ctx = new (window.AudioContext || window.webkitAudioContext)();
-                if (type === 'done') {
-                    const notes = [523.25, 659.25, 783.99, 1046.50];
-                    notes.forEach((freq, idx) => {
-                        const osc = ctx.createOscillator();
-                        const gain = ctx.createGain();
-                        osc.type = 'sine';
-                        osc.frequency.setValueAtTime(freq, ctx.currentTime + idx * 0.12);
-                        gain.gain.setValueAtTime(0.3, ctx.currentTime + idx * 0.12);
-                        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + idx * 0.12 + 0.4);
-                        osc.connect(gain);
-                        gain.connect(ctx.destination);
-                        osc.start(ctx.currentTime + idx * 0.12);
-                        osc.stop(ctx.currentTime + idx * 0.12 + 0.4);
-                    });
-                } else if (type === 'snooze') {
-                    [440, 392].forEach((freq, idx) => {
-                        const osc = ctx.createOscillator();
-                        const gain = ctx.createGain();
-                        osc.type = 'sine';
-                        osc.frequency.setValueAtTime(freq, ctx.currentTime + idx * 0.15);
-                        gain.gain.setValueAtTime(0.25, ctx.currentTime + idx * 0.15);
-                        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + idx * 0.15 + 0.35);
-                        osc.connect(gain);
-                        gain.connect(ctx.destination);
-                        osc.start(ctx.currentTime + idx * 0.15);
-                        osc.stop(ctx.currentTime + idx * 0.15 + 0.35);
-                    });
-                }
-            } catch(e) {}
+            animation: toastEnter 0.25s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        // Web Speech API
+        @keyframes toastEnter {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+
+    <script>
+        // -------------------------------------------------------------
+        // PROCEDURAL AUDIO SYNTHESIZER (Pure Web Audio API)
+        // -------------------------------------------------------------
+        function playChime(kind) {
+            try {
+                const AudioContext = window.AudioContext || window.webkitAudioContext;
+                if (!AudioContext) return;
+                const ctx = new AudioContext();
+
+                if (kind === 'done') {
+                    // Ascending Major 4-note Arpeggio: C5, E5, G5, C6
+                    const freqs = [523.25, 659.25, 783.99, 1046.50];
+                    freqs.forEach((f, idx) => {
+                        const osc = ctx.createOscillator();
+                        const gain = ctx.createGain();
+                        osc.type = 'sine';
+                        osc.frequency.setValueAtTime(f, ctx.currentTime + idx * 0.10);
+                        gain.gain.setValueAtTime(0.28, ctx.currentTime + idx * 0.10);
+                        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + idx * 0.10 + 0.38);
+                        osc.connect(gain);
+                        gain.connect(ctx.destination);
+                        osc.start(ctx.currentTime + idx * 0.10);
+                        osc.stop(ctx.currentTime + idx * 0.10 + 0.38);
+                    });
+                } else if (kind === 'snooze') {
+                    // Descending 2-note soft sequence: A4, G4
+                    [440.0, 392.0].forEach((f, idx) => {
+                        const osc = ctx.createOscillator();
+                        const gain = ctx.createGain();
+                        osc.type = 'sine';
+                        osc.frequency.setValueAtTime(f, ctx.currentTime + idx * 0.14);
+                        gain.gain.setValueAtTime(0.22, ctx.currentTime + idx * 0.14);
+                        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + idx * 0.14 + 0.32);
+                        osc.connect(gain);
+                        gain.connect(ctx.destination);
+                        osc.start(ctx.currentTime + idx * 0.14);
+                        osc.stop(ctx.currentTime + idx * 0.14 + 0.32);
+                    });
+                }
+            } catch(e) {
+                console.log("Audio synthesis bypassed:", e);
+            }
+        }
+
+        // -------------------------------------------------------------
+        // WEB SPEECH SYNTHESIS ENGINE
+        // -------------------------------------------------------------
         function speakText(text) {
             if ('speechSynthesis' in window) {
                 window.speechSynthesis.cancel();
                 const utter = new SpeechSynthesisUtterance(text);
-                utter.rate = 0.9;
+                utter.rate = 0.88; // Slightly measured rate for elderly auditory processing
+                utter.pitch = 1.0;
                 window.speechSynthesis.speak(utter);
             }
         }
 
         function showToast(msg, bg) {
-            const toast = document.getElementById('app-toast');
+            const toast = document.getElementById('toast-notification');
             if (toast) {
                 toast.innerText = msg;
-                toast.style.background = bg || '#1B7A3E';
+                toast.style.background = bg || '#0F172A';
                 toast.style.display = 'block';
-                setTimeout(() => { toast.style.display = 'none'; }, 3500);
+                clearTimeout(window._toastTimer);
+                window._toastTimer = setTimeout(() => { toast.style.display = 'none'; }, 3400);
             }
         }
 
-        // Clock Ticking
+        // Live Clock Ticking
         function updateClock() {
             const now = new Date();
             const h = String(now.getHours()).padStart(2, '0');
             const m = String(now.getMinutes()).padStart(2, '0');
-            const clockEl = document.getElementById('clock-display');
+            const clockEl = document.getElementById('clock-ticker');
             if (clockEl) clockEl.innerText = h + ':' + m;
         }
         setInterval(updateClock, 1000);
 
-        // Core State Transitions: Home (A) <-> Prompt (B)
-        let activeOccId = {% if active_occ %}{{ active_occ.occ_id }}{% else %}999{% endif %};
-        let activeTaskLabel = "{% if active_occ %}{{ active_occ.task.label }}{% else %}{{ next_task_label|default('Have your lunch') }}{% endif %}";
-        let activeTaskTime = "{% if active_occ %}{{ active_occ.task.time_of_day }}{% else %}{{ current_time|default('12:30') }}{% endif %}";
-        let snoozeCount = {% if active_occ %}{{ active_occ.snoozes }}{% else %}0{% endif %};
+        // -------------------------------------------------------------
+        // SMOOTH HARDWARE-ACCELERATED STAGE TRANSITIONS
+        // -------------------------------------------------------------
+        let currentActiveOccId = {% if active_occ %}{{ active_occ.occ_id }}{% else %}999{% endif %};
+        let currentTaskLabel = "{% if active_occ %}{{ active_occ.task.label }}{% else %}{{ next_task_label|default('Have your lunch') }}{% endif %}";
+        let currentTaskTime = "{% if active_occ %}{{ active_occ.task.time_of_day }}{% else %}{{ current_time|default('12:30') }}{% endif %}";
+        let currentSnoozeCount = {% if active_occ %}{{ active_occ.snoozes }}{% else %}0{% endif %};
 
-        {% if active_occ %}
-        window.addEventListener('DOMContentLoaded', () => {
-            showPromptScreen(activeTaskLabel, activeTaskTime, activeOccId);
-        });
-        {% endif %}
+        function transitionToPrompt(label, timeStr, occId) {
+            currentTaskLabel = label || currentTaskLabel;
+            currentTaskTime = timeStr || currentTaskTime;
+            currentActiveOccId = occId || currentActiveOccId;
 
-        function showPromptScreen(label, timeStr, occId) {
-            activeTaskLabel = label || activeTaskLabel;
-            activeTaskTime = timeStr || activeTaskTime;
-            activeOccId = occId || activeOccId;
+            document.getElementById('display-task-title').innerText = currentTaskLabel;
+            document.getElementById('display-task-time').innerText = currentTaskTime;
 
-            document.getElementById('prompt-task-text').innerText = activeTaskLabel;
-            document.getElementById('prompt-time-text').innerText = activeTaskTime;
+            const viewA = document.getElementById('stage-screen-a');
+            const viewB = document.getElementById('stage-screen-b');
 
-            document.getElementById('view-screen-a').style.display = 'none';
-            document.getElementById('view-screen-b').style.display = 'flex';
-            document.getElementById('tablet-badge').innerText = 'B. PROMPT';
-            document.getElementById('tablet-badge').style.background = '#DCFCE7';
-            document.getElementById('tablet-badge').style.color = '#15803D';
+            // Fluid slide transition
+            viewA.className = 'stage-view view-hidden-left';
+            viewB.className = 'stage-view view-active';
 
-            // Speak on prompt arrival
-            speakText("Time for " + activeTaskLabel + ". Please tap the big green Done button when you are finished.");
+            const badge = document.getElementById('tablet-status-badge');
+            badge.innerText = 'B. PROMPT';
+            badge.style.background = '#DCFCE7';
+            badge.style.color = '#15803D';
+            badge.style.borderColor = '#86EFAC';
+
+            // Auditory announcement
+            speakText("Time for " + currentTaskLabel + ". Please tap the green Done button when you are finished.");
         }
 
-        function showHomeScreen() {
-            document.getElementById('view-screen-b').style.display = 'none';
-            document.getElementById('view-screen-a').style.display = 'flex';
-            document.getElementById('tablet-badge').innerText = 'A. HOME';
-            document.getElementById('tablet-badge').style.background = '#E2E8F0';
-            document.getElementById('tablet-badge').style.color = '#475569';
+        function transitionToHome() {
+            const viewA = document.getElementById('stage-screen-a');
+            const viewB = document.getElementById('stage-screen-b');
+
+            viewB.className = 'stage-view view-hidden-right';
+            viewA.className = 'stage-view view-active';
+
+            const badge = document.getElementById('tablet-status-badge');
+            badge.innerText = 'A. HOME';
+            badge.style.background = '#F1F5F9';
+            badge.style.color = '#475569';
+            badge.style.borderColor = '#E2E8F0';
         }
 
-        // Patient Actions
+        // -------------------------------------------------------------
+        // PATIENT INTERACTION HANDLERS
+        // -------------------------------------------------------------
         function patientConfirmDone() {
             playChime('done');
-            speakText("Well done! " + activeTaskLabel + " completed.");
-            document.getElementById('done-overlay').style.display = 'flex';
-            showToast("✓ DONE: " + activeTaskLabel + " completed!", "#1B7A3E");
+            speakText("Well done! " + currentTaskLabel + " completed.");
 
-            // Post to backend
-            fetch('/api/confirm/' + activeOccId, { method: 'POST', headers: {'X-Requested-With': 'XMLHttpRequest'} })
+            const overlay = document.getElementById('celebration-overlay');
+            overlay.style.display = 'flex';
+            showToast("✓ DONE: " + currentTaskLabel + " confirmed!", "#15803D");
+
+            fetch('/api/confirm/' + currentActiveOccId, { method: 'POST', headers: {'X-Requested-With': 'XMLHttpRequest'} })
                 .then(r => r.json())
                 .then(() => {
                     setTimeout(() => {
-                        document.getElementById('done-overlay').style.display = 'none';
-                        showHomeScreen();
-                        reloadEventLogs();
-                        reloadCompletionRate();
-                    }, 1800);
+                        overlay.style.display = 'none';
+                        transitionToHome();
+                        refreshAuditTelemetry();
+                    }, 1700);
                 });
         }
 
         function patientSnooze() {
             playChime('snooze');
-            snoozeCount++;
+            currentSnoozeCount++;
 
-            if (snoozeCount <= 2) {
+            if (currentSnoozeCount <= 2) {
                 speakText("Reminder snoozed for 10 minutes.");
-                showToast("⏰ Snoozed for 10 minutes (" + snoozeCount + "/2)", "#F59E0B");
+                showToast("⏰ Snoozed for 10 minutes (" + currentSnoozeCount + "/2)", "#D97706");
 
-                fetch('/api/snooze/' + activeOccId, { method: 'POST', headers: {'X-Requested-With': 'XMLHttpRequest'} })
+                fetch('/api/snooze/' + currentActiveOccId, { method: 'POST', headers: {'X-Requested-With': 'XMLHttpRequest'} })
                     .then(() => {
                         setTimeout(() => {
-                            showHomeScreen();
-                            reloadEventLogs();
-                        }, 1200);
+                            transitionToHome();
+                            refreshAuditTelemetry();
+                        }, 1000);
                     });
             } else {
                 speakText("Snooze limit reached. Please tap Done.");
-                showToast("🚫 Snooze limit reached (2/2)", "#EF4444");
-                document.getElementById('btn-snooze-action').style.opacity = '0.5';
-                document.getElementById('btn-snooze-action').style.cursor = 'not-allowed';
+                showToast("🚫 Snooze limit reached (2/2)", "#DC2626");
+                const btn = document.getElementById('btn-snooze-action');
+                if (btn) {
+                    btn.style.opacity = '0.5';
+                    btn.style.cursor = 'not-allowed';
+                }
             }
         }
 
         function speakHomeOrientation() {
-            const clockText = document.getElementById('clock-display').innerText;
-            const text = "Today is Monday, 16 November 2026. The time is " + clockText + ", Afternoon. Up next: " + activeTaskLabel + ".";
-            speakText(text);
+            const clockText = document.getElementById('clock-ticker').innerText;
+            const orientationText = "Today is {{ day_name }}, {{ date_str }}. The time is " + clockText + ", {{ part_of_day }}. Up next: " + currentTaskLabel + ".";
+            speakText(orientationText);
             showToast("🔊 Reading orientation aloud...", "#2563EB");
         }
 
+        // Modals
         function openModal(id) { document.getElementById(id).style.display = 'flex'; }
         function closeModal(id) { document.getElementById(id).style.display = 'none'; }
 
         function triggerCall(name, number) {
             speakText("Calling " + name + " now.");
-            showToast("📞 Calling " + name + " (" + number + ")...", "#1B7A3E");
+            showToast("📞 Calling " + name + " (" + number + ")...", "#15803D");
             setTimeout(() => { closeModal('modal-call'); }, 1800);
         }
 
-        // Caregiver Actions
+        // -------------------------------------------------------------
+        // CAREGIVER & DEMO ACTIONS
+        // -------------------------------------------------------------
         function toggleCaregiverOptin() {
-            const sw = document.getElementById('switch-optin');
-            const inp = document.getElementById('optin-input');
-            if (inp.value === '1') {
-                inp.value = '0';
-                sw.style.backgroundColor = '#CBD5E0';
-                sw.querySelector('.toggle-knob').style.right = 'auto';
-                sw.querySelector('.toggle-knob').style.left = '3px';
-                showToast("Caregiver escalation turned OFF", "#64748B");
+            const track = document.getElementById('optin-track');
+            const thumb = document.getElementById('optin-thumb');
+            const input = document.getElementById('optin-input');
+            if (input.value === '1') {
+                input.value = '0';
+                track.style.backgroundColor = '#CBD5E0';
+                thumb.style.right = 'auto';
+                thumb.style.left = '3px';
+                showToast("Caregiver multi-miss alert turned OFF", "#64748B");
             } else {
-                inp.value = '1';
-                sw.style.backgroundColor = '#2563EB';
-                sw.querySelector('.toggle-knob').style.left = 'auto';
-                sw.querySelector('.toggle-knob').style.right = '3px';
-                showToast("Caregiver escalation opt-in ENABLED", "#2563EB");
+                input.value = '1';
+                track.style.backgroundColor = '#2563EB';
+                thumb.style.left = 'auto';
+                thumb.style.right = '3px';
+                showToast("Caregiver multi-miss alert (Rule 5) ENABLED", "#2563EB");
             }
         }
 
-        function saveCaregiverRoutine(event) {
+        function setRoutinePreset(label, timeVal) {
+            document.getElementById('routine-label').value = label;
+            document.getElementById('routine-time').value = timeVal;
+        }
+
+        function handleSaveRoutine(event) {
             event.preventDefault();
-            const label = document.getElementById('cfg-label').value;
-            const timeVal = document.getElementById('cfg-time').value;
-            const daysVal = document.getElementById('cfg-days').value;
+            const label = document.getElementById('routine-label').value.trim();
+            const timeVal = document.getElementById('routine-time').value.trim();
+            const daysVal = document.getElementById('routine-days').value;
             const optin = document.getElementById('optin-input').value;
 
             const formData = new FormData();
@@ -804,22 +1274,21 @@
                 .then(() => {
                     playChime('done');
                     showToast("💾 Routine '" + label + "' scheduled at " + timeVal + "!", "#2563EB");
-                    speakText("Routine saved: " + label + " at " + timeVal);
-                    // Update Next task on patient display
-                    activeTaskLabel = label;
-                    activeTaskTime = timeVal;
-                    document.getElementById('next-task-text').innerText = label;
-                    reloadEventLogs();
+                    speakText("Routine scheduled: " + label);
+                    currentTaskLabel = label;
+                    currentTaskTime = timeVal;
+                    document.getElementById('next-task-display').innerText = label;
+                    refreshAuditTelemetry();
                 });
         }
 
-        function triggerSimulationPrompt() {
+        function triggerSimulationReminder() {
             fetch('/api/trigger-test-prompt', { method: 'POST', headers: {'X-Requested-With': 'XMLHttpRequest'} })
                 .then(r => r.json())
                 .then(d => {
                     showToast("🔔 Active Reminder Triggered!", "#2563EB");
-                    showPromptScreen(d.label, "12:30", d.occ_id);
-                    reloadEventLogs();
+                    transitionToPrompt(d.label, "12:30", d.occ_id);
+                    refreshAuditTelemetry();
                 });
         }
 
@@ -830,290 +1299,366 @@
                     showToast(d.message, d.streak >= 2 ? '#DC2626' : '#D97706');
                     speakText(d.message);
                     if (d.streak >= 2) {
-                        const alertBox = document.getElementById('caregiver-alert-box');
+                        const alertBox = document.getElementById('escalation-banner-box');
                         alertBox.style.display = 'block';
-                        alertBox.innerHTML = "<h3>⚠️ Urgent Caregiver Escalation (Rule 5 Triggered)</h3><p>Consecutive misses reached threshold (" + d.streak + " misses). Notification dispatched to Sarah (Daughter).</p>";
+                        alertBox.innerHTML = "<strong>⚠️ Urgent Caregiver Escalation Dispatched (Rule 5 Triggered)</strong><br><span style='font-size:0.9rem;'>Consecutive misses reached threshold (" + d.streak + " misses). Notification dispatched to Sarah (Daughter).</span>";
                     }
-                    reloadEventLogs();
-                    reloadCompletionRate();
+                    refreshAuditTelemetry();
                 });
         }
 
-        function reloadEventLogs() {
-            fetch('/api/status')
+        function resetDatabaseState() {
+            if (confirm("Reset database to initial seed state?")) {
+                fetch('/api/reset-data', { method: 'POST' })
+                    .then(() => {
+                        location.reload();
+                    });
+            }
+        }
+
+        function refreshAuditTelemetry() {
+            fetch('/api/v1/analytics')
                 .then(r => r.json())
                 .then(d => {
-                    // Update completion rate
-                    document.getElementById('kpi-rate').innerText = d.completion_rate + '%';
+                    const rateEl = document.getElementById('kpi-completion-rate');
+                    if (rateEl) rateEl.innerText = d.adherence_rate_pct + '%';
                 });
         }
 
-        function reloadCompletionRate() {
-            fetch('/api/status')
-                .then(r => r.json())
-                .then(d => {
-                    document.getElementById('kpi-rate').innerText = d.completion_rate + '%';
-                });
+        // View Mode Switcher
+        function setWorkspaceMode(mode) {
+            const ws = document.getElementById('workspace-container');
+            const btns = document.querySelectorAll('.view-tab-btn');
+            btns.forEach(b => b.classList.remove('active'));
+
+            ws.className = 'workspace mode-' + mode;
+            document.getElementById('btn-mode-' + mode).classList.add('active');
         }
+
+        {% if active_occ %}
+        window.addEventListener('DOMContentLoaded', () => {
+            transitionToPrompt(currentTaskLabel, currentTaskTime, currentActiveOccId);
+        });
+        {% endif %}
     </script>
 </head>
 <body>
-    <!-- Live Demo Toolbar -->
-    <div class="demo-bar">
-        <div class="demo-bar-title">
-            <span>⚡ Interactive Control Center:</span>
-        </div>
-        <div class="demo-actions">
-            <button class="btn-demo" onclick="triggerSimulationPrompt()">🔔 Trigger Reminder Now</button>
-            <button class="btn-demo btn-demo-orange" onclick="patientSnooze()">⏰ Test Snooze (10m)</button>
-            <button class="btn-demo" onclick="speakHomeOrientation()">🔊 Speak Orientation</button>
-            <button class="btn-demo btn-demo-red" onclick="simulateMissedOccurrence()">⚠️ Simulate Missed Task</button>
-            <button class="btn-demo" style="background:#475569;" onclick="location.reload();">🔄 Refresh State</button>
-        </div>
-    </div>
 
-    <!-- App Header -->
-    <div class="app-header">
-        <div class="app-title-group">
-            <h1>🧠 Daily Living Assistant</h1>
-            <div class="app-subtitle">A Caregiver-Configured Assistive System for Alzheimer's & Dementia (MSc Dissertation System)</div>
+    <!-- 1. TOP INTERACTIVE COMMAND BAR -->
+    <div class="command-bar">
+        <div class="command-brand">
+            <div class="live-indicator"></div>
+            <span>Daily Living Assistant Studio</span>
+            <span style="opacity:0.6; font-weight:400; font-size:0.8rem;">| Level 7 MSc Production System</span>
         </div>
-        <div class="view-tabs">
-            <button class="tab-btn active" onclick="document.getElementById('studio-layout').style.display='grid'; this.classList.add('active');">
-                ⚡ Unified Studio View (All 3 in 1)
+        <div class="command-actions">
+            <button type="button" class="cmd-btn cmd-btn-primary" onclick="triggerSimulationReminder()">
+                🔔 Trigger Reminder
+            </button>
+            <button type="button" class="cmd-btn cmd-btn-warning" onclick="patientSnooze()">
+                ⏰ Test Snooze
+            </button>
+            <button type="button" class="cmd-btn" onclick="speakHomeOrientation()">
+                🔊 Read Aloud
+            </button>
+            <button type="button" class="cmd-btn cmd-btn-danger" onclick="simulateMissedOccurrence()">
+                ⚠️ Simulate Miss
+            </button>
+            <button type="button" class="cmd-btn" onclick="resetDatabaseState()">
+                🔄 Reset State
             </button>
         </div>
     </div>
 
-    <!-- MAIN UNIFIED WORKSPACE -->
-    <div class="workspace">
-        <div class="studio-layout" id="studio-layout">
-            
-            <!-- LEFT COLUMN: THE REAL INTERACTIVE PATIENT TABLET -->
-            <div style="display:flex; flex-direction:column; align-items:center;">
-                <div style="font-size:1.15rem; font-weight:800; color:#1E293B; margin-bottom:10px;">
-                    📱 Recipient Tablet Display (Patient Surface)
+    <!-- 2. HEADER & VIEW MODE SWITCHER -->
+    <div class="app-header">
+        <div class="header-title-block">
+            <h1>🧠 Assistive Living System</h1>
+            <div class="header-subtitle">A Caregiver-Configured Cognitive Ergonomic Architecture for Early-Stage Alzheimer's & Dementia</div>
+        </div>
+        <div class="view-switcher">
+            <button type="button" id="btn-mode-studio" class="view-tab-btn active" onclick="setWorkspaceMode('studio')">
+                ⚡ Studio (Side-by-Side)
+            </button>
+            <button type="button" id="btn-mode-tablet" class="view-tab-btn" onclick="setWorkspaceMode('tablet')">
+                📱 Recipient Tablet
+            </button>
+            <button type="button" id="btn-mode-caregiver" class="view-tab-btn" onclick="setWorkspaceMode('caregiver')">
+                🖥️ Caregiver Portal
+            </button>
+        </div>
+    </div>
+
+    <!-- 3. MAIN WORKSPACE -->
+    <div id="workspace-container" class="workspace mode-studio">
+        <div class="studio-grid">
+
+            <!-- LEFT COLUMN: REALISTIC TABLET SURFACE -->
+            <div class="tablet-column">
+                <div class="tablet-section-badge">
+                    <span>📱 Recipient Surface (Appliance Mode)</span>
                 </div>
 
-                <div class="tablet-device">
-                    <div class="device-badge" id="tablet-badge">A. HOME</div>
-
-                    <!-- Celebration Done Overlay -->
-                    <div id="done-overlay" class="done-overlay">
-                        <div style="font-size:4.5rem; margin-bottom:12px;">✓</div>
-                        <div style="font-size:2rem; font-weight:800;">Well Done!</div>
-                        <p style="font-size:1.1rem; margin-top:8px;">Activity confirmed & logged.</p>
+                <div class="tablet-chassis">
+                    <div class="tablet-sensor-bar">
+                        <div class="camera-dot"></div>
                     </div>
 
-                    <!-- SCREEN A: HOME / ORIENTATION -->
-                    <div id="view-screen-a">
-                        <div class="home-top">
-                            <div class="home-day">{{ day_name|default('Monday') }}</div>
-                            <div class="home-date">{{ date_str|default('16 November 2026') }}</div>
-                            <div class="home-clock" id="clock-display">{{ current_time|default('12:30') }}</div>
-                            <div class="home-part">{{ part_of_day|default('Afternoon') }}</div>
-                        </div>
+                    <div class="tablet-display">
+                        <div class="screen-tag-pill" id="tablet-status-badge">A. HOME</div>
 
-                        <!-- Next Reminder Card -->
-                        <div class="home-next-box" onclick="triggerSimulationPrompt()" title="Click to trigger this reminder!">
-                            <div class="home-next-label">Next:</div>
-                            <div class="home-next-task" id="next-task-text">{{ next_task_label|default('Have your lunch') }}</div>
-                        </div>
-
-                        <!-- Action Buttons -->
-                        <div class="home-actions">
-                            <div class="home-row">
-                                <button type="button" class="home-btn" onclick="openModal('modal-schedule')">My day</button>
-                                <button type="button" class="home-btn" onclick="openModal('modal-call')">Call family</button>
+                        <!-- Celebration Done Overlay -->
+                        <div id="celebration-overlay" class="celebration-overlay">
+                            <div class="celebration-icon">
+                                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                                    <polyline points="20 6 9 17 4 12"></polyline>
+                                </svg>
                             </div>
-                            <button type="button" class="home-btn home-btn-full" onclick="speakHomeOrientation()">
-                                Read aloud
-                            </button>
-                        </div>
-                    </div>
-
-                    <!-- SCREEN B: REMINDER PROMPT (MORPHS RIGHT HERE INSIDE TABLET) -->
-                    <div id="view-screen-b">
-                        <div class="prompt-top-time" id="prompt-time-text">{% if active_occ %}{{ active_occ.task.time_of_day }}{% else %}12:30{% endif %}</div>
-
-                        <div class="prompt-center">
-                            <div class="prompt-lead">Time for</div>
-                            <div class="prompt-main-task" id="prompt-task-text">{% if active_occ %}{{ active_occ.task.label }}{% else %}Have your lunch{% endif %}</div>
-                            <div class="prompt-spoken-note" onclick="speakText('Time for ' + activeTaskLabel + '. Please tap the big green Done button when you are finished.')">
-                                🔊 (spoken aloud as well)
-                            </div>
+                            <div class="celebration-title">Well Done!</div>
+                            <div class="celebration-desc">Activity confirmed & logged.</div>
                         </div>
 
-                        <div class="prompt-actions">
-                            <button type="button" class="btn-prompt-done" onclick="patientConfirmDone()">
-                                DONE
-                            </button>
-                            <button type="button" class="btn-prompt-snooze" id="btn-snooze-action" onclick="patientSnooze()">
-                                Remind me<br>in 10 minutes
-                            </button>
-                            <div class="prompt-footer-note">
-                                Snooze hides after 2 uses
+                        <!-- STAGE CONTAINER (SMOOTH TRANSITIONS) -->
+                        <div class="screen-stage">
+
+                            <!-- SCREEN A: HOME ORIENTATION -->
+                            <div id="stage-screen-a" class="stage-view view-active">
+                                <div class="home-orientation">
+                                    <div class="home-day-title">{{ day_name|default('Monday') }}</div>
+                                    <div class="home-date-subtitle">{{ date_str|default('16 November 2026') }}</div>
+                                    <div class="home-giant-clock" id="clock-ticker">{{ current_time|default('12:30') }}</div>
+                                    <div class="home-part-badge">{{ part_of_day|default('Afternoon') }}</div>
+                                </div>
+
+                                <!-- Next Scheduled Routine Card -->
+                                <div class="home-next-card" onclick="triggerSimulationReminder()" title="Click to trigger this reminder!">
+                                    <div class="next-card-lead">Next Up</div>
+                                    <div class="next-card-title" id="next-task-display">{{ next_task_label|default('Have your lunch') }}</div>
+                                </div>
+
+                                <!-- Action Buttons -->
+                                <div class="patient-button-grid">
+                                    <div class="patient-btn-row">
+                                        <button type="button" class="patient-btn" onclick="openModal('modal-schedule')">
+                                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                                            My day
+                                        </button>
+                                        <button type="button" class="patient-btn" onclick="openModal('modal-call')">
+                                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+                                            Call family
+                                        </button>
+                                    </div>
+                                    <button type="button" class="patient-btn patient-btn-full" onclick="speakHomeOrientation()">
+                                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg>
+                                        Read aloud
+                                    </button>
+                                </div>
                             </div>
+
+                            <!-- SCREEN B: REMINDER PROMPT (MORPHS IN-PLACE) -->
+                            <div id="stage-screen-b" class="stage-view view-hidden-right">
+                                <div class="prompt-time-badge" id="display-task-time">12:30</div>
+
+                                <div class="prompt-main-body">
+                                    <div class="prompt-lead-text">Time for</div>
+                                    <div class="prompt-task-headline" id="display-task-title">Have your lunch</div>
+                                    <div class="prompt-speech-note" onclick="speakText('Time for ' + currentTaskLabel + '. Please tap Done when finished.')">
+                                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg>
+                                        Spoken aloud as well
+                                    </div>
+                                </div>
+
+                                <div class="prompt-actions-stack">
+                                    <button type="button" class="btn-giant-done" onclick="patientConfirmDone()">
+                                        <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                                        DONE
+                                    </button>
+                                    <button type="button" class="btn-snooze-action" id="btn-snooze-action" onclick="patientSnooze()">
+                                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                                        Remind me in 10 minutes
+                                    </button>
+                                    <div class="prompt-snooze-counter-note">
+                                        Snooze automatically hides after 2 uses (Rule 4)
+                                    </div>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- RIGHT COLUMN: CAREGIVER CONSOLE & AUDIT DATABASE -->
-            <div class="caregiver-console">
-                <!-- Top KPI Banner -->
+            <!-- RIGHT COLUMN: CAREGIVER COMMAND PORTAL & DATABASE TELEMETRY -->
+            <div class="caregiver-column">
+
+                <!-- 1. Top KPI Summary Grid -->
                 <div class="kpi-grid">
                     <div class="kpi-card">
-                        <div class="kpi-label">Completion Rate</div>
-                        <div class="kpi-val" id="kpi-rate" style="color: #1B7A3E;">{{ completion_rate }}%</div>
-                        <div class="kpi-desc">SQLite SQL formula (IPR §7)</div>
+                        <div class="kpi-card-label">Adherence Rate</div>
+                        <div class="kpi-card-value" id="kpi-completion-rate" style="color: var(--success);">{{ completion_rate }}%</div>
+                        <div class="kpi-card-desc">Evaluated via SQLite Fact Formula</div>
                     </div>
                     <div class="kpi-card">
-                        <div class="kpi-label">Active Routines</div>
-                        <div class="kpi-val" style="color: #2563EB;">{{ tasks|length }}</div>
-                        <div class="kpi-desc">Configured daily tasks</div>
+                        <div class="kpi-card-label">Active Routines</div>
+                        <div class="kpi-card-value" style="color: var(--primary);">{{ tasks|length }}</div>
+                        <div class="kpi-card-desc">Scheduled daily living tasks</div>
                     </div>
                     <div class="kpi-card">
-                        <div class="kpi-label">Recipient</div>
-                        <div class="kpi-val" style="font-size: 1.6rem; color: #1E293B;">John</div>
-                        <div class="kpi-desc">Caregiver: Sarah</div>
+                        <div class="kpi-card-label">Dyad Profile</div>
+                        <div class="kpi-card-value" style="font-size: 1.6rem; color: var(--slate-800);">John & Sarah</div>
+                        <div class="kpi-card-desc">Recipient: Father | Carer: Daughter</div>
+                    </div>
+                    <div class="kpi-card">
+                        <div class="kpi-card-label">Safety Engine</div>
+                        <div class="kpi-card-value" style="font-size: 1.6rem; color: #7C3AED;">0% Alarms</div>
+                        <div class="kpi-card-desc">Zero false alarms on benign delays</div>
                     </div>
                 </div>
 
-                <!-- Alert Banner -->
-                <div class="alert-banner" id="caregiver-alert-box">
+                <!-- 2. Rule 5 Escalation Alert Box -->
+                <div class="escalation-banner" id="escalation-banner-box">
                     {% if alerts %}
-                    <h3>⚠️ Urgent Caregiver Escalation Active</h3>
+                    <strong>⚠️ Urgent Caregiver Escalation Dispatched</strong><br>
                     {% for a in alerts %}
-                    <p><strong>{{ a.timestamp.strftime('%H:%M:%S') }}</strong>: {{ a.message }}</p>
+                    <p style="margin-top:4px;"><strong>{{ a.timestamp.strftime('%H:%M:%S') }}</strong>: {{ a.message }}</p>
                     {% endfor %}
                     {% endif %}
                 </div>
 
-                <!-- Screen C: Caregiver Setup Form -->
-                <div class="card">
-                    <div class="card-header">
-                        <h2>C. Caregiver Setup — Schedule New Reminder</h2>
+                <!-- 3. Screen C: Caregiver Setup Form -->
+                <div class="glass-card">
+                    <div class="card-header-row">
+                        <h2>
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+                            Caregiver Routine Configuration (Screen C)
+                        </h2>
+                        <span style="font-size:0.82rem; font-weight:700; color:var(--primary); background:var(--primary-light); padding:4px 10px; border-radius:12px;">Decoupled Setup Portal</span>
                     </div>
 
-                    <form onsubmit="saveCaregiverRoutine(event)">
+                    <form onsubmit="handleSaveRoutine(event)">
                         <input type="hidden" id="optin-input" value="1">
-                        
-                        <div class="form-grid">
+
+                        <div class="form-grid-2">
                             <div class="form-group">
-                                <label class="form-label">What should it say?</label>
-                                <input type="text" id="cfg-label" class="form-input" value="Have your lunch" required>
+                                <label class="form-label">What should the reminder say?</label>
+                                <input type="text" id="routine-label" class="form-control" value="Have your lunch" required>
+                                <div class="quick-chips-row">
+                                    <button type="button" class="chip-btn" onclick="setRoutinePreset('Take morning medication', '09:00')">💊 Morning Meds</button>
+                                    <button type="button" class="chip-btn" onclick="setRoutinePreset('Have your lunch', '12:30')">🍲 Lunch</button>
+                                    <button type="button" class="chip-btn" onclick="setRoutinePreset('Afternoon walk', '15:30')">🚶 Walk</button>
+                                    <button type="button" class="chip-btn" onclick="setRoutinePreset('Evening heart medicine', '20:00')">❤️ Heart Meds</button>
+                                </div>
                             </div>
                             <div class="form-group">
-                                <label class="form-label">Time (24h)</label>
-                                <input type="text" id="cfg-time" class="form-input" value="12:30" required>
+                                <label class="form-label">Scheduled Time (24h)</label>
+                                <input type="text" id="routine-time" class="form-control" value="12:30" pattern="^([01]\d|2[0-3]):([0-5]\d)$" title="Please enter 24h format HH:MM" required>
                             </div>
                         </div>
 
-                        <div class="form-grid">
+                        <div class="form-grid-2">
                             <div class="form-group">
-                                <label class="form-label">Days Recurrence</label>
-                                <input type="text" id="cfg-days" class="form-input" value="Every day">
+                                <label class="form-label">Recurrence Pattern</label>
+                                <select id="routine-days" class="form-control">
+                                    <option value="Every day">Every day (Monday to Sunday)</option>
+                                    <option value="Weekdays only">Weekdays only (Monday to Friday)</option>
+                                    <option value="Weekends only">Weekends only (Saturday & Sunday)</option>
+                                </select>
                             </div>
                             <div class="form-group">
-                                <label class="form-label">Snooze Settings</label>
-                                <input type="text" class="form-input" value="10 min, max 2 times" readonly style="background:#F8FAFC;">
+                                <label class="form-label">Snooze & Response Window</label>
+                                <input type="text" class="form-control" value="10 min interval, max 2 uses, 60m window" readonly style="background:var(--slate-50); color:var(--slate-500);">
                             </div>
                         </div>
 
-                        <div class="toggle-row" onclick="toggleCaregiverOptin()">
-                            <div class="toggle-switch" id="switch-optin">
-                                <div class="toggle-knob"></div>
+                        <div class="toggle-container" onclick="toggleCaregiverOptin()">
+                            <div class="toggle-track" id="optin-track">
+                                <div class="toggle-thumb" id="optin-thumb"></div>
                             </div>
-                            <div class="toggle-label">
-                                <strong>Alert me if missed twice (Rule 5 opt-in)</strong><br>
-                                <span style="color:#64748B; font-size:0.85rem;">Sends family notification only after 2 consecutive unconfirmed tasks.</span>
+                            <div class="toggle-text-block">
+                                <strong>Alert me if missed twice (Rule 5 Consecutive Miss Opt-in)</strong>
+                                <span>Sends an alert to Sarah only after 2 consecutive unconfirmed tasks to eliminate alert fatigue.</span>
                             </div>
                         </div>
 
-                        <button type="submit" class="btn-save-routine">
+                        <button type="submit" class="btn-primary-block">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg>
                             Save & Update Schedule
                         </button>
                     </form>
                 </div>
 
-                <!-- Live Audit Event Log (SQLite EVENT_LOG) -->
-                <div class="card">
-                    <div class="card-header">
-                        <h2>Auditable Event Log (SQLite `EVENT_LOG`)</h2>
-                        <span style="font-size:0.85rem; color:#64748B;">Live history of all interactions</span>
+                <!-- 4. Auditable Event Timeline (SQLite EVENT_LOG) -->
+                <div class="glass-card">
+                    <div class="card-header-row">
+                        <h2>
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
+                            Auditable Event Log (`EVENT_LOG` Fact Table)
+                        </h2>
+                        <span style="font-size:0.8rem; color:var(--slate-400);">Immutable SQLite Ledger</span>
                     </div>
 
-                    <div style="max-height: 220px; overflow-y: auto;">
-                        <table class="data-table">
-                            <thead>
-                                <tr>
-                                    <th>Timestamp</th>
-                                    <th>System Event Action</th>
-                                </tr>
-                            </thead>
-                            <tbody id="log-table-body">
-                                {% for log in event_logs %}
-                                <tr>
-                                    <td style="color:#64748B; font-family:monospace; font-size:0.85rem;">{{ log.timestamp }}</td>
-                                    <td><strong>{{ log.action }}</strong></td>
-                                </tr>
-                                {% else %}
-                                <tr>
-                                    <td colspan="2" style="text-align:center; color:#999; padding:12px;">No events recorded yet.</td>
-                                </tr>
-                                {% endfor %}
-                            </tbody>
-                        </table>
+                    <div class="timeline-container" id="timeline-list">
+                        {% for log in event_logs %}
+                        <div class="timeline-item">
+                            <div class="timeline-badge {% if 'DONE' in log.action %}badge-done-icon{% elif 'Snooze' in log.action %}badge-snooze-icon{% elif 'Miss' in log.action %}badge-miss-icon{% else %}badge-info-icon{% endif %}">
+                                {% if 'DONE' in log.action %}✓{% elif 'Snooze' in log.action %}⏰{% elif 'Miss' in log.action %}!{% else %}•{% endif %}
+                            </div>
+                            <div class="timeline-content">
+                                <div class="timeline-time">{{ log.timestamp }}</div>
+                                <div class="timeline-text">{{ log.action }}</div>
+                            </div>
+                        </div>
+                        {% else %}
+                        <div style="text-align:center; color:var(--slate-400); padding:20px;">No interaction events recorded yet.</div>
+                        {% endfor %}
                     </div>
                 </div>
 
             </div>
+
         </div>
     </div>
 
-    <!-- Modal: My Day Schedule -->
-    <div id="modal-schedule" class="modal-overlay" onclick="if(event.target === this) closeModal('modal-schedule');">
-        <div class="modal-card">
-            <h2 style="font-size:1.8rem; margin-bottom:16px;">📅 Today's Schedule</h2>
-            <div style="max-height: 300px; overflow-y: auto; margin-bottom: 20px;">
+    <!-- MODAL: MY DAY SCHEDULE -->
+    <div id="modal-schedule" class="modal-backdrop" onclick="if(event.target === this) closeModal('modal-schedule');">
+        <div class="modal-box">
+            <h2 style="font-size:1.6rem; font-weight:800; margin-bottom:16px;">📅 Today's Schedule</h2>
+            <div style="max-height: 280px; overflow-y: auto; margin-bottom: 20px;">
                 {% for item in day_schedule %}
-                <div style="display:flex; justify-content:space-between; align-items:center; padding:10px 14px; border-bottom:1px solid #E2E8F0; text-align:left;">
+                <div style="display:flex; justify-content:space-between; align-items:center; padding:10px 12px; border-bottom:1px solid var(--slate-100); text-align:left;">
                     <div><strong>{{ item.time }}</strong> — {{ item.label }}</div>
                     <div>
                         {% if item.status == 'done' %}
-                        <span style="background:#E8F5E9; color:#2E7D32; padding:3px 8px; border-radius:6px; font-weight:bold; font-size:0.85rem;">✓ Done</span>
+                        <span style="background:var(--success-light); color:var(--success); padding:3px 8px; border-radius:6px; font-weight:bold; font-size:0.8rem;">✓ Done</span>
                         {% else %}
-                        <span style="background:#E3F2FD; color:#1565C0; padding:3px 8px; border-radius:6px; font-weight:bold; font-size:0.85rem;">⏳ Scheduled</span>
+                        <span style="background:var(--primary-light); color:var(--primary); padding:3px 8px; border-radius:6px; font-weight:bold; font-size:0.8rem;">⏳ Scheduled</span>
                         {% endif %}
                     </div>
                 </div>
                 {% endfor %}
             </div>
-            <button class="btn-demo" style="width:100%; justify-content:center; padding:12px; font-size:1.05rem;" onclick="closeModal('modal-schedule')">
-                Close Schedule
-            </button>
+            <button type="button" class="btn-primary-block" onclick="closeModal('modal-schedule')">Close Schedule</button>
         </div>
     </div>
 
-    <!-- Modal: Call Family -->
-    <div id="modal-call" class="modal-overlay" onclick="if(event.target === this) closeModal('modal-call');">
-        <div class="modal-card">
-            <h2 style="font-size:1.8rem; margin-bottom:16px;">📞 Who would you like to call?</h2>
+    <!-- MODAL: CALL FAMILY -->
+    <div id="modal-call" class="modal-backdrop" onclick="if(event.target === this) closeModal('modal-call');">
+        <div class="modal-box">
+            <h2 style="font-size:1.6rem; font-weight:800; margin-bottom:16px;">📞 Who would you like to call?</h2>
             <div style="display:flex; flex-direction:column; gap:12px; margin-bottom:20px;">
-                <button type="button" class="btn-demo" style="background:#2E7D32; font-size:1.25rem; padding:16px; border-radius:14px; justify-content:center;" onclick="triggerCall('Sarah (Daughter)', '07123 456789')">
+                <button type="button" class="patient-btn" style="background:#15803D; color:white; border-color:#166534;" onclick="triggerCall('Sarah (Daughter)', '07123 456789')">
                     📞 Call Sarah (Daughter)
                 </button>
-                <button type="button" class="btn-demo" style="background:#1565C0; font-size:1.25rem; padding:16px; border-radius:14px; justify-content:center;" onclick="triggerCall('Dr. Evans (GP)', '01234 567890')">
+                <button type="button" class="patient-btn" style="background:#1D4ED8; color:white; border-color:#1E40AF;" onclick="triggerCall('Dr. Evans (GP)', '01234 567890')">
                     📞 Call Dr. Evans (GP)
                 </button>
             </div>
-            <button class="btn-demo" style="background:#94A3B8; width:100%; justify-content:center; padding:10px;" onclick="closeModal('modal-call')">
-                Cancel
-            </button>
+            <button type="button" class="patient-btn" style="border:none; color:var(--slate-500);" onclick="closeModal('modal-call')">Cancel</button>
         </div>
     </div>
 
-    <div id="app-toast" class="toast"></div>
+    <!-- TOAST NOTIFICATION -->
+    <div id="toast-notification" class="toast-bubble"></div>
+
 </body>
 </html>
