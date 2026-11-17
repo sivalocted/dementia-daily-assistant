@@ -1,0 +1,103 @@
+{
+  "simulation_duration_days": 7,
+  "simulation_duration_hours": 168,
+  "total_routines_planned": 33,
+  "total_confirmed_done": 31,
+  "total_snooze_interactions": 5,
+  "total_missed": 2,
+  "overall_completion_rate_pct": 93.94,
+  "total_caregiver_alerts_dispatched": 0,
+  "caregiver_alerts": [],
+  "log_samples": [
+    {
+      "day": "Monday",
+      "date": "2026-11-16",
+      "time": "08:30",
+      "label": "Have morning tea & toast",
+      "action": "confirmed_on_time",
+      "final_status": "done",
+      "snoozes": 0
+    },
+    {
+      "day": "Monday",
+      "date": "2026-11-16",
+      "time": "09:00",
+      "label": "Take blood pressure medication",
+      "action": "confirmed_on_time",
+      "final_status": "done",
+      "snoozes": 0
+    },
+    {
+      "day": "Monday",
+      "date": "2026-11-16",
+      "time": "12:30",
+      "label": "Have your lunch",
+      "action": "confirmed_on_time",
+      "final_status": "done",
+      "snoozes": 0
+    },
+    {
+      "day": "Monday",
+      "date": "2026-11-16",
+      "time": "15:30",
+      "label": "Afternoon walk in the garden",
+      "action": "confirmed_on_time",
+      "final_status": "done",
+      "snoozes": 0
+    },
+    {
+      "day": "Monday",
+      "date": "2026-11-16",
+      "time": "20:00",
+      "label": "Take evening heart medicine",
+      "action": "confirmed_on_time",
+      "final_status": "done",
+      "snoozes": 0
+    },
+    {
+      "day": "Tuesday",
+      "date": "2026-11-17",
+      "time": "08:30",
+      "label": "Have morning tea & toast",
+      "action": "confirmed_on_time",
+      "final_status": "done",
+      "snoozes": 0
+    },
+    {
+      "day": "Tuesday",
+      "date": "2026-11-17",
+      "time": "09:00",
+      "label": "Take blood pressure medication",
+      "action": "confirmed_on_time",
+      "final_status": "done",
+      "snoozes": 0
+    },
+    {
+      "day": "Tuesday",
+      "date": "2026-11-17",
+      "time": "12:30",
+      "label": "Have your lunch",
+      "action": "confirmed_on_time",
+      "final_status": "done",
+      "snoozes": 0
+    },
+    {
+      "day": "Tuesday",
+      "date": "2026-11-17",
+      "time": "15:30",
+      "label": "Afternoon walk in the garden",
+      "action": "confirmed_on_time",
+      "final_status": "done",
+      "snoozes": 0
+    },
+    {
+      "day": "Tuesday",
+      "date": "2026-11-17",
+      "time": "20:00",
+      "label": "Take evening heart medicine",
+      "action": "snoozed_then_confirmed",
+      "final_status": "done",
+      "snoozes": 1
+    }
+  ]
+}

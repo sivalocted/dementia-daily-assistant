@@ -1,0 +1,125 @@
+{
+  "wcag_standard": "WCAG 2.2 Level AA",
+  "timestamp": "2026-11-17T18:15:00Z",
+  "overall_status": "COMPLIANT",
+  "contrast_audit": [
+    {
+      "element": "Primary Body & Heading Text",
+      "foreground": "#1A202C",
+      "background": "#FFFFFF",
+      "measured_ratio": 16.32,
+      "target_threshold": 4.5,
+      "wcag_level": "AAA",
+      "status": "PASS"
+    },
+    {
+      "element": "Secondary Muted Orientation Text",
+      "foreground": "#64748B",
+      "background": "#FFFFFF",
+      "measured_ratio": 4.76,
+      "target_threshold": 4.5,
+      "wcag_level": "AA",
+      "status": "PASS"
+    },
+    {
+      "element": "DONE Action Button (Screen B)",
+      "foreground": "#FFFFFF",
+      "background": "#1B7A3E",
+      "measured_ratio": 5.38,
+      "target_threshold": 4.5,
+      "wcag_level": "AA",
+      "status": "PASS"
+    },
+    {
+      "element": "Snooze Action Button (Screen B)",
+      "foreground": "#1A202C",
+      "background": "#FFFFFF",
+      "measured_ratio": 16.32,
+      "target_threshold": 4.5,
+      "wcag_level": "AAA",
+      "status": "PASS"
+    },
+    {
+      "element": "Save Routine Button (Screen C)",
+      "foreground": "#FFFFFF",
+      "background": "#2563EB",
+      "measured_ratio": 5.17,
+      "target_threshold": 4.5,
+      "wcag_level": "AA",
+      "status": "PASS"
+    }
+  ],
+  "touch_target_audit": [
+    {
+      "target": "Screen B: Big Green DONE Button",
+      "dimensions": "322 x 80 px",
+      "wcag_22_baseline": "24 px",
+      "project_tremor_baseline": "48 px",
+      "status": "PASS"
+    },
+    {
+      "target": "Screen B: Snooze in 10 min Button",
+      "dimensions": "322 x 68 px",
+      "wcag_22_baseline": "24 px",
+      "project_tremor_baseline": "48 px",
+      "status": "PASS"
+    },
+    {
+      "target": "Screen A: 'My day' Button",
+      "dimensions": "155 x 58 px",
+      "wcag_22_baseline": "24 px",
+      "project_tremor_baseline": "48 px",
+      "status": "PASS"
+    },
+    {
+      "target": "Screen A: 'Call family' Button",
+      "dimensions": "155 x 58 px",
+      "wcag_22_baseline": "24 px",
+      "project_tremor_baseline": "48 px",
+      "status": "PASS"
+    },
+    {
+      "target": "Screen A: 'Read aloud' Button",
+      "dimensions": "322 x 58 px",
+      "wcag_22_baseline": "24 px",
+      "project_tremor_baseline": "48 px",
+      "status": "PASS"
+    },
+    {
+      "target": "Screen C: 'Save Routine' Button",
+      "dimensions": "480 x 52 px",
+      "wcag_22_baseline": "24 px",
+      "project_tremor_baseline": "48 px",
+      "status": "PASS"
+    }
+  ],
+  "dual_signifiers_audit": [
+    {
+      "element": "Task Completion Status",
+      "visual_cues": [
+        "Green Color (#1B7A3E)",
+        "Checkmark Glyph (\u2713)",
+        "Explicit Text 'Done'"
+      ],
+      "compliant": true
+    },
+    {
+      "element": "Snooze Disabled State",
+      "visual_cues": [
+        "Opacity 50%",
+        "Cursor not-allowed",
+        "Explicit Text 'Snooze limit reached'"
+      ],
+      "compliant": true
+    },
+    {
+      "element": "Rule 5 Escalation Alert",
+      "visual_cues": [
+        "Red Accent (#EF4444)",
+        "Warning Triangle Icon (\u26a0\ufe0f)",
+        "Explicit Heading 'Urgent Caregiver Escalation'"
+      ],
+      "compliant": true
+    }
+  ]
+}

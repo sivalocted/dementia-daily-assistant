@@ -1,0 +1,25 @@
+{
+  "dataset_sample_count": 500,
+  "total_genuine_hazards": 2,
+  "deterministic_rules_metrics": {
+    "TP": 2,
+    "FP": 0,
+    "FN": 0,
+    "TN": 498,
+    "Precision": 1.0,
+    "Recall": 1.0,
+    "F1_Score": 1.0,
+    "False_Alarm_Rate_Pct": 0.0
+  },
+  "isolation_forest_metrics": {
+    "TP": 1,
+    "FP": 29,
+    "FN": 1,
+    "TN": 469,
+    "Precision": 0.0333,
+    "Recall": 0.5,
+    "F1_Score": 0.0625,
+    "False_Alarm_Rate_Pct": 5.82
+  },
+  "research_finding_sq3": "Deterministic Rule 5 achieved 100% Precision and 0.0% False Alarm Rate on life-critical medication emergencies. In contrast, unsupervised Isolation Forest generated a False Alarm Rate of 5.82%, flagging benign schedule drifts (such as sleeping in or answering after 35 minutes) as clinical emergencies. This empirical finding substantiates why deterministic state machines must govern production domestic reminder pipelines to prevent caregiver alert fatigue and anxiety."
+}

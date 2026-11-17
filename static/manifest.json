@@ -1,0 +1,10 @@
+{
+  "name": "Dementia Daily Living Assistant",
+  "short_name": "LivingAssistant",
+  "start_url": "/screen-a",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#F1F5F9",
+  "theme_color": "#1B2A38",
+  "description": "An accessible, caregiver-configured assistive living system for individuals living with early-stage Alzheimer's and dementia."
+}
